@@ -1,12 +1,22 @@
-# **Biodiverse Spatial Conditions**   
-**Version 5.0**
-
-[**Biodiverse is a tool for the spatial analysis of biological and related diversity**](http://shawnlaffan.github.io/biodiverse/)
+# Introduction
 
 **Shawn W Laffan**  
 **Feb 2026**
 
-There is also a blog that provides updates and tips about functionality.  It can be accessed through [http://biodiverse-analysis-software.blogspot.com.au/](http://biodiverse-analysis-software.blogspot.com.au/) 
+Spatial conditions are core to the Biodiverse system.  They are used to specify both neighbourhoods used in the analyses, and also the definition queries used to restrict the calculations to a subset of groups.
+
+This document provides an overview of using these conditions, lists the available conditions and describes how to use variables, both predefined and user defined.  
+
+This document describes **version 5.0**
+
+Biodiverse is a tool for the spatial analysis of biological and related diversity.
+
+For more information about Biodiverse see:
+
+Web site: [http://shawnlaffan.github.io/biodiverse/](http://shawnlaffan.github.io/biodiverse/)
+
+
+The blog provides updates and tips about functionality.  It can be accessed through [http://biodiverse-analysis-software.blogspot.com.au/](http://biodiverse-analysis-software.blogspot.com.au/) 
 
 If you have question about the software then please start a discussion at [https://github.com/shawnlaffan/biodiverse/discussions](https://github.com/shawnlaffan/biodiverse/discussions) or post a question at [https://groups.google.com/forum/\#\!forum/biodiverse-users](https://groups.google.com/forum/#!forum/biodiverse-users) 
 

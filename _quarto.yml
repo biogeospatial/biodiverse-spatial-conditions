@@ -10,7 +10,9 @@ book:
   date: "2026-02-04"
   chapters:
     - index.qmd
+    - overview.qmd
     - spatial_conditions.qmd
+    - variables.qmd
   output-file: "Biodiverse-Spatial-Conditions"
   downloads: [pdf]
   
@@ -20,7 +22,6 @@ format:
     toc: true
     toc-depth: 3
     toc-expand: true
-    toc-location: left
     number-sections: true
     number-depth: 2
     link-external-newwindow: true
