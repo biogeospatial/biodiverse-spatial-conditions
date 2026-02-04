@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,10 +73,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-aa4ceff52b674d253eb42194b6fb353b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fbb27ab3f4425a88d9682c2047e7f75c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -894,7 +894,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>$coord_id1</code> is the name of the processing coord, <code>$coord_id2</code> is the name of the neighbour coord.</p>
 <p><code>$coord[0]</code>, <code>$coord[1]</code> are the coordinate values of the processing group in the first and second dimensions. As per the above, think of these as X and Y, except that <code>$coord[5]</code> will also work if your groups have six or more dimensions. Note that the <code>$coord[]</code> variables do not necessarily work properly with the spatial index, so you might need to turn the index off when using them.</p>
 <p><code>$nbrcoord[0]</code> etc are analogous to <code>$coord[0]</code> etc, except that they are the coordinates for the current neighbour group.</p>
-<p>Non-programmers need to note that the array index starts from zero, so <code>$coord[1]</code> is the second coordinate axis and not the first. This differs from systems like R and AWK, but is consistent with many other programming languages like C and Python.</p>
+<p>Note that the array index starts from zero, so <code>$coord[1]</code> is the second coordinate axis and not the first. This differs from systems like Fortran, R and AWK, but is consistent with many other programming languages like C, Rust and Python.</p>
 <section id="examples-using-variables" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="examples-using-variables"><span class="header-section-number">7.1</span> Examples using variables</h2>
 <ul>
