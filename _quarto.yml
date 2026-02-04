@@ -1,0 +1,17 @@
+format:
+  html:
+    theme: zephyr
+    toc: true
+    toc-depth: 3
+    toc-expand: true
+    toc-location: left
+    number-sections: true
+    number-depth: 2
+    link-external-newwindow: true
+  pdf:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    number-depth: 2
+
+editor: source
