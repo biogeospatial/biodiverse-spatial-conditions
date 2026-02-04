@@ -1,3 +1,19 @@
+project:
+  type: book
+  output-dir: docs
+
+# https://quarto.org/docs/reference/projects/books.html
+
+book:
+  title: "Biodiverse Spatial Conditions"
+  author: "Shawn W Laffan"
+  date: "2026-02-04"
+  chapters:
+    - index.qmd
+    - spatial_conditions.qmd
+  output-file: "Biodiverse-Spatial-Conditions"
+  downloads: [pdf]
+  
 format:
   html:
     theme: zephyr
