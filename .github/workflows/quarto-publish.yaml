@@ -8,7 +8,8 @@ name: Render and Publish
 on:
   push:
     branches:
-      - 'ci'
+      - ci
+      - main
     tags-ignore:
       - '*'
   pull_request:
