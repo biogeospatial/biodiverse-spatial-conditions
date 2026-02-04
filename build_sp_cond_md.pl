@@ -87,7 +87,7 @@ If you are using a locale where the radix character (the decimal place marker) i
 
 This is a brief description of the evaluation process used to determine the set of neighbours for a group.
 
-Currently the system operates on boolean membership of the set of neighbours, so a group either is or is not a neighbour of the processing group.  If no spatial index is used then every group's membership of the processing cell's neighbour set is considered in turn.  If a spatial index is used then only a subset of neighbours is considered (those within the relevant spatial index blocks).  This is why processing times are usually shorter when using an index (see [KeyConcepts#Using_the_spatial_index](KeyConcepts#using-the-spatial-index)).
+Currently the system operates on boolean membership of the set of neighbours, so a group either is or is not a neighbour of the processing group.  If no spatial index is used then every group's membership of the processing cell's neighbour set is considered in turn.  If a spatial index is used then only a subset of neighbours is considered (those within the relevant spatial index blocks).  This is why processing times are usually shorter when using an index ([more details here](https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#building-a-spatial-index)).
 
 Spatial conditions need not return symmetric sets.  In this way group _i_ can be in group _j_'s neighbour set, but _j_ need not be in _i_'s neighbour set.  This is not an issue for moving window analyses, but can cause asymmetric dissimilarity matrices if used to run a spatially constrained cluster analysis.  This is why it is generally a good idea in these cases to set the second neighbourhood to be `sp_select_all()` or `1` (which is the same thing).
 
@@ -98,7 +98,7 @@ The conditions are specified using some combination of pre-defined functions, pr
 
 # Functions #
 
-Functions are the easiest way to specify conditions as one does not need to wrestle with variables.  Functions also set metadata to tell the system how to use the spatial index.  The spatial index saves considerable processing time for large data sets as the system does not need to test many pairs of index blocks to determine which to use (see [KeyConcepts#Using_the_spatial_index](KeyConcepts#using-the-spatial-index)).  If you use a function for which an index will produce erroneous results then the system sets a flag to ignore it.
+Functions are the easiest way to specify conditions as one does not need to wrestle with variables.  Functions also set metadata to tell the system how to use the spatial index.  The [spatial index](https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#building-a-spatial-index) saves considerable processing time for large data sets as the system does not need to test many pairs of index blocks to determine which to use.  If you use a function for which an index will produce erroneous results then the system sets a flag to ignore it.  You can also disable it in the settings for a spatial condition.
 
 ## Available functions ##
 
