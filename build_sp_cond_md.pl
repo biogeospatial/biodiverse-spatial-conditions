@@ -131,7 +131,7 @@ Note that using `abs($d[1])` is the same as using `$D[1]`.
 
 `$nbrcoord[0]` etc are analogous to `$coord[0]` etc, except that they are the coordinates for the current neighbour group.
 
-Non-programmers need to note that the array index starts from zero, so `$coord[1]` is the second coordinate axis and not the first.  This differs from systems like R and AWK, but is consistent with many other programming languages like C and Python.
+Note that the array index starts from zero, so `$coord[1]` is the second coordinate axis and not the first.  This differs from systems like Fortran, R and AWK, but is consistent with many other programming languages like C, Rust and Python.
 
 
 ## Examples using variables ##
