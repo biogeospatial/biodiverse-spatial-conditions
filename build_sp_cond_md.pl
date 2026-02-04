@@ -51,7 +51,7 @@ system (@args) == 0
 
 sub get_preamble {
     return <<'END_OF_PREAMBLE'
-# Introduction #
+# Biodiverse Spatial Conditions #
 
 Spatial conditions are core to the Biodiverse system.  They are used to specify both neighbourhoods used in the analyses, and also the definition queries used to restrict the calculations to a subset of groups.
 
@@ -61,11 +61,11 @@ Spatial conditions are used both to define the neighbourhoods of the spatial ana
 
 ## Neighbourhoods ##
 
-Neighbourhoods are essential for any spatial analysis, as it is through these that one can define the set of groups to be considered in an analysis.  In the moving window analyses these determine which groups are compared with which other groups.  In the cluster analyses they determine which groups are considered candidates to be clustered together.  It is also possible to define neighbourhoods for spatially constrained randomisations (see [Laffan and Crisp, 2003, J Biogeog](https://doi.org/10.1046/j.1365-2699.2003.00875.x)).
+Neighbourhoods are essential for any spatial analysis, as it is through these that one can define the set of groups to be considered in an analysis.  In the moving window analyses these determine which groups are compared with which other groups.  In the cluster analyses they determine which groups are considered candidates to be clustered together.  It is also possible to define neighbourhoods for spatially constrained randomisations (see [Laffan and Crisp, 2003, J Biogeog](https://doi.org/10.1046/j.1365-2699.2003.00875.x){.external target="_blank"}).
 
 Before we describe the process, some definitions are needed.  The **processing group** is the group being considered in the analysis at some iteration, and to which the results for that iteration are assigned.  A group is a member of the processing group's set of neighbours (is a **neighbouring group**) if the spatial condition evaluates to true.
 
-A [spatial analysis](https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#running-a-spatial-moving-window-analysis) progressively iterates over each group that passes the definition query, assessing every other group for membership in neighbour set 1 or 2.  The selected indices are then calculated using the groups that occur in neighbour sets 1 and 2 (and their labels and other properties as required by the [calculations](https://github.com/shawnlaffan/biodiverse/wiki/Indices)).
+A [spatial analysis](https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#running-a-spatial-moving-window-analysis){.external target="_blank"} progressively iterates over each group that passes the definition query, assessing every other group for membership in neighbour set 1 or 2.  The selected indices are then calculated using the groups that occur in neighbour sets 1 and 2 (and their labels and other properties as required by the [calculations](https://github.com/shawnlaffan/biodiverse/wiki/Indices){.external target="_blank"}).
 
 ## Definition Queries ##
 
@@ -87,7 +87,7 @@ If you are using a locale where the radix character (the decimal place marker) i
 
 This is a brief description of the evaluation process used to determine the set of neighbours for a group.
 
-Currently the system operates on boolean membership of the set of neighbours, so a group either is or is not a neighbour of the processing group.  If no spatial index is used then every group's membership of the processing cell's neighbour set is considered in turn.  If a spatial index is used then only a subset of neighbours is considered (those within the relevant spatial index blocks).  This is why processing times are usually shorter when using an index ([more details here](https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#building-a-spatial-index)).
+Currently the system operates on boolean membership of the set of neighbours, so a group either is or is not a neighbour of the processing group.  If no spatial index is used then every group's membership of the processing cell's neighbour set is considered in turn.  If a spatial index is used then only a subset of neighbours is considered (those within the relevant spatial index blocks).  This is why processing times are usually shorter when using an index ([more details here](https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#building-a-spatial-index){.external target="_blank"}).
 
 Spatial conditions need not return symmetric sets.  In this way group _i_ can be in group _j_'s neighbour set, but _j_ need not be in _i_'s neighbour set.  This is not an issue for moving window analyses, but can cause asymmetric dissimilarity matrices if used to run a spatially constrained cluster analysis.  This is why it is generally a good idea in these cases to set the second neighbourhood to be `sp_select_all()` or `1` (which is the same thing).
 
@@ -98,7 +98,7 @@ The conditions are specified using some combination of pre-defined functions, pr
 
 # Functions #
 
-Functions are the easiest way to specify conditions as one does not need to wrestle with variables.  Functions also set metadata to tell the system how to use the spatial index.  The [spatial index](https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#building-a-spatial-index) saves considerable processing time for large data sets as the system does not need to test many pairs of index blocks to determine which to use.  If you use a function for which an index will produce erroneous results then the system sets a flag to ignore it.  You can also disable it in the settings for a spatial condition.
+Functions are the easiest way to specify conditions as one does not need to wrestle with variables.  Functions also set metadata to tell the system how to use the spatial index.  The [spatial index](https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#building-a-spatial-index){.external target="_blank"} saves considerable processing time for large data sets as the system does not need to test many pairs of index blocks to determine which to use.  If you use a function for which an index will produce erroneous results then the system sets a flag to ignore it.  You can also disable it in the settings for a spatial condition.
 
 ## Available functions ##
 
@@ -220,9 +220,9 @@ return ($a_dist + $b_dist) <= 1;
 
 Note the use of the word `my`. This is required to declare your own variables in the correct scope. If it is not used then the variables will not work properly. Do not declare any of the pre-calculated Biodiverse variables with this (`$D` etc) - they already exist and redeclaring will overprint them, causing unpredictable results.
 
-If you wish to know if your function works with the spatial index then run a moving window analysis twice, once with and once without the spatial index, using the list indices generated by the [Element Counts](Indices#element-counts) calculations to get the lists of neighbours. Export the results to CSV and use a difference tool to compare the results.
+If you wish to know if your function works with the spatial index then run a moving window analysis twice, once with and once without the spatial index, using the list indices generated by the [Element Counts](https://github.com/shawnlaffan/biodiverse/wiki/Indices#element-counts){.external target="_blank"} calculations to get the lists of neighbours. Export the results to CSV and use a difference tool to compare the results.
 
-Functions available by default are those in the [Math::Trig library](http://perldoc.perl.org/Math/Trig.html), plus [POSIX::fmod()](http://perldoc.perl.org/POSIX.html#fmod).
+Functions available by default are those in the [Math::Trig library](http://perldoc.perl.org/Math/Trig.html){.external target="_blank"}, plus [POSIX::fmod()](http://perldoc.perl.org/POSIX.html#fmod){.external target="_blank"}.
 
 
 To access environment variables you have set, just use `$ENV{variable_name}`, eg `$ENV{my_default_radius}`.
