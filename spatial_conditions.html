@@ -419,7 +419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="sp_in_label_range">sp_in_label_range</h3>
 <p>(Available from version 5.1)</p>
 <p>Is a group within a label's range?</p>
-<p>This is by default assessed as a check of whether the label is found in the processing group but can be generalised by passing the <code>convex_hull</code> or <code>circumcircle</code> arguments.</p>
+<p>This is by default assessed as a check of whether the label is found in the processing group but can be generalised by using the <code>convex_hull</code>, <code>concave_hull</code> or <code>circumcircle</code> arguments.</p>
 <p>The <code>type</code> argument determines if the processing or neighbour group is assessed. Normally this can be left as the default.</p>
 <p>The <code>convex_hull</code> returns true if the processing group is within the convex hull defined by the groups that form the label range.</p>
 <p>The <code>circumcircle</code> returns true if the processing group is within the minimum circumscribing circle that includes all of the label range groups.</p>
