@@ -1,0 +1,146 @@
+name: Render and Publish
+
+# you need these permissions to publish to GitHub pages
+# permissions: 
+#     contents: write
+#     pages: write
+
+on:
+  push:
+    branches:
+      - ci
+      - main
+    tags-ignore:
+      - '*'
+  pull_request:
+
+env:
+  # PERL5LIB: /home/runner/perl5/lib/perl5
+  # PERL_LOCAL_LIB_ROOT: /home/runner/perl5
+  # PERL_MB_OPT: --install_base /home/runner/perl5
+  # PERL_MM_OPT: INSTALL_BASE=/home/runner/perl5
+  # PERL_CPANM_OPT: -M https://www.cpan.org
+  PERL_MOD_DIR: /home/runner/perl5/lib/perl5
+  CMAKE_BUILD_PARALLEL_LEVEL: 4
+  MAKEFLAGS: -j4
+  
+  
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        
+      - name: gdal stack
+        run: |
+          sudo apt-get update
+          sudo apt-get --yes install libgdal-dev sqlite3
+
+      - name: cmake, ffi and stuff
+        run: |
+          sudo apt-get --yes install cmake libffi-dev openssl libssl-dev pandoc
+
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.42'
+          
+      - name: Prepare for cache
+        run: |
+          perl -V > perlversion.txt
+          echo 'v1' >> perlversion.txt
+          ls -l perlversion.txt
+
+      - name: Cache CPAN modules
+        uses: actions/cache@v4
+        with:
+          path: ~/perl5
+          key: ${{ runner.os }}-build-${{ hashFiles('perlversion.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ hashFiles('perlversion.txt') }}
+
+      - name: Install aliens
+        run: |
+          which -a cpanm
+          which -a perl
+          cpanm --notest local::lib
+          echo $(perl -Mlocal::lib=${HOME}/perl5)
+          eval "$(perl -Mlocal::lib=${HOME}/perl5)"
+          cpanm --notest Alien::Build  
+          cpanm --installdeps --notest Alien::sqlite
+          cpanm --notest -v Alien::sqlite
+          cpanm --installdeps --notest Alien::libtiff
+          cpanm -v --notest Alien::libtiff
+          cpanm --installdeps --notest Alien::geos::af
+          cpanm -v Alien::geos::af
+          cpanm --installdeps --notest Alien::proj
+          cpanm -v Alien::proj
+          cpanm --installdeps --notest Alien::gdal
+          cpanm -v Alien::gdal
+          cpanm --notest --installdeps --no-man-pages PDL
+
+      - name: Install Dynamic Dependencies
+        run: |
+          which -a cpanm
+          which -a perl
+          which openssl
+          cpanm --notest local::lib
+          echo $(perl -Mlocal::lib=${HOME}/perl5)
+          eval "$(perl -Mlocal::lib=${HOME}/perl5)"
+          # eval $(perl -I ${PERL_MOD_DIR}/lib/perl5/ -Mlocal::lib)
+          # https://github.com/libwww-perl/libwww-perl/issues/491
+          cpanm --notest Browser::Start 
+          cpanm --notest ExtUtils::Depends 
+          cpanm --notest ExtUtils::PkgConfig
+          cpanm --notest HTTP::Tiny
+          #cpanm --reinstall Net::SSLeay
+          #cpanm --reinstall IO::Socket::SSL
+          cpanm LWP::Simple
+          cpanm --notest Spreadsheet::Read
+          cpanm --notest LWP
+          cpanm --installdeps FFI::Platypus
+          cpanm --notest FFI::Platypus
+          cpanm --notest --installdeps --no-man-pages PDL
+          cpanm --notest --no-man-pages PDL
+          cpanm --installdeps --notest Geo::GDAL::FFI
+          cpanm --reinstall --verbose Geo::GDAL::FFI
+          
+
+      - name: Clone biodiverse repo
+        run: | 
+          echo $(perl -Mlocal::lib=${HOME}/perl5)
+          eval "$(perl -Mlocal::lib=${HOME}/perl5)"
+          git clone --depth=1 https://github.com/shawnlaffan/biodiverse.git
+          cd biodiverse
+          cpanm --installdeps . || cat $HOME/.cpanm/latest-build/build.log
+          prove t/00-load.t || true  #  allow caching even if we fail
+          #prove -j4 -l t
+          #perl Makefile.pl && make install
+          cd -
+
+      - name: build file
+        run: |
+          find . -name 'rlib.pm' -print
+          perl -I./biodiverse/lib -I/home/runner/perl5/lib/perl5 ./build_sp_cond_md.pl
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # To install LaTeX to build PDF book 
+          tinytex: true 
+          # uncomment below and fill to pin a version
+          # version: SPECIFIC-QUARTO-VERSION-HERE
+
+
+      # NOTE: If Publishing to GitHub Pages, set the permissions correctly (see top of this yaml)
+      - name: Publish to GitHub Pages (and render)
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
+
+     
