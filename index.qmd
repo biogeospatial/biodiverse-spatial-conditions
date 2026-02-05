@@ -1,8 +1,5 @@
 # Introduction
 
-**Shawn W Laffan**  
-**Feb 2026**
-
 Spatial conditions are core to the Biodiverse system.  They are used to specify both neighbourhoods used in the analyses, and also the definition queries used to restrict the calculations to a subset of groups.
 
 This document provides an overview of using these conditions, lists the available conditions and describes how to use variables, both predefined and user defined.  
