@@ -245,8 +245,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_annulus" class="level3">
 <h3 class="anchored" data-anchor-id="sp_annulus">sp_annulus</h3>
 <p>An annulus. Assessed against all dimensions by default but use the optional <code>axes =&gt; []</code> arg to specify a subset. Uses group (map) distances.</p>
-<p><strong>Required args:</strong> inner_radius, outer_radius</p>
-<p><strong>Optional args:</strong> axes</p>
+<p><strong>Required args:</strong> <code>inner_radius</code>, <code>outer_radius</code></p>
+<p><strong>Optional args:</strong> <code>axes</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  an annulus assessed against all axes</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sp_annulus (inner_radius =&gt; <span class="dv">2000000</span>, outer_radius =&gt; <span class="dv">4000000</span>)</span>
@@ -257,8 +257,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_block" class="level3">
 <h3 class="anchored" data-anchor-id="sp_block">sp_block</h3>
 <p>A non-overlapping block. Set an axis to undef to ignore it.</p>
-<p><strong>Required args:</strong> size</p>
-<p><strong>Optional args:</strong> origin</p>
+<p><strong>Required args:</strong> <code>size</code></p>
+<p><strong>Optional args:</strong> <code>origin</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sp_block (size =&gt; <span class="dv">3</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sp_block (size =&gt; [<span class="dv">3</span>,<span class="fu">undef</span>,<span class="dv">5</span>]) <span class="co">#  rectangular block, ignores second axis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -266,8 +266,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_circle" class="level3">
 <h3 class="anchored" data-anchor-id="sp_circle">sp_circle</h3>
 <p>A circle. Assessed against all dimensions by default (more properly called a hypersphere) but you can use the optional <code>axes =&gt; []</code> arg to specify a subset. Uses group (map) distances.</p>
-<p><strong>Required args:</strong> radius</p>
-<p><strong>Optional args:</strong> axes</p>
+<p><strong>Required args:</strong> <code>radius</code></p>
+<p><strong>Optional args:</strong> <code>axes</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  A circle of radius 1000 across all axes</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sp_circle (radius =&gt; <span class="dv">1000</span>)</span>
@@ -278,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_circle_cell" class="level3">
 <h3 class="anchored" data-anchor-id="sp_circle_cell">sp_circle_cell</h3>
 <p>A circle. Assessed against all dimensions by default (more properly called a hypersphere) but you can use the optional <code>axes =&gt; []</code> arg to specify a subset. Uses cell (map) distances.</p>
-<p><strong>Required args:</strong> radius</p>
+<p><strong>Required args:</strong> <code>radius</code></p>
 <p><strong>Optional args:</strong> <em>none</em></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  A circle of radius 3 cells across all axes</span></span>
@@ -290,8 +290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_ellipse" class="level3">
 <h3 class="anchored" data-anchor-id="sp_ellipse">sp_ellipse</h3>
 <p>A two dimensional ellipse. Use the <code>axes</code> argument to control which are used (default is <code>[0,1]</code>). The default rotate_angle is 0, such that the major axis is east-west.</p>
-<p><strong>Required args:</strong> major_radius, minor_radius</p>
-<p><strong>Optional args:</strong> axes, rotate_angle, rotate_angle_deg</p>
+<p><strong>Required args:</strong> <code>major_radius</code>, <code>minor_radius</code></p>
+<p><strong>Optional args:</strong> <code>axes</code>, <code>rotate_angle</code>, <code>rotate_angle_deg</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># North-south aligned ellipse</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sp_ellipse (</span>
@@ -304,8 +304,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_get_spatial_output_list_value" class="level3">
 <h3 class="anchored" data-anchor-id="sp_get_spatial_output_list_value">sp_get_spatial_output_list_value</h3>
 <p>Obtain a value from a list in a previously calculated spatial output.</p>
-<p><strong>Required args:</strong> index, output</p>
-<p><strong>Optional args:</strong> element, list, no_error_if_no_index</p>
+<p><strong>Required args:</strong> <code>index</code>, <code>output</code></p>
+<p><strong>Optional args:</strong> <code>element</code>, <code>list</code>, <code>no_error_if_no_index</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Get the spatial results value for the current neighbour group</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (or processing group if used as a def query)</span></span>
@@ -328,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="sp_group_not_empty">sp_group_not_empty</h3>
 <p>Is a basedata group non-empty? (i.e.&nbsp;contains one or more labels)</p>
 <p><strong>Required args:</strong> <em>none</em></p>
-<p><strong>Optional args:</strong> element</p>
+<p><strong>Optional args:</strong> <code>element</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restrict calculations to those non-empty groups.</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  Will use the processing group if a def query,</span></span>
@@ -356,8 +356,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If the <code>rw</code> argument is true then the branches are range weighted. This is the same as the range weighted tree in CANAPE. When both <code>eq</code> and <code>rw</code> are true then this is the same as the range weighted alternate tree in CANAPE</p>
 <p>The underlying algorithm checks each of the terminal ranges using <a href="#sp_in_label_range">sp_in_label_range()</a>. This means the search can also use the convex/concave hull or circumcircle of each terminal, as well as setting other arguments such as the <code>buffer_dist</code> and using a default label in some circumstances.</p>
 <p>Note that the range of each of the ancestor's tips is assessed separately, i.e.&nbsp;the union of the hulls/circles is used. The ranges are not aggregated before a hull or circumcircle is calculated.</p>
-<p><strong>Required args:</strong> label, target</p>
-<p><strong>Optional args:</strong> allow_holes, as_frac, axes, buffer_dist, by_depth, by_tip_count, circumcircle, concave_hull, convex_hull, hull_ratio, type</p>
+<p><strong>Required args:</strong> <code>label</code>, <code>target</code></p>
+<p><strong>Optional args:</strong> <code>allow_holes</code>, <code>as_frac</code>, <code>axes</code>, <code>buffer_dist</code>, <code>by_depth</code>, <code>by_tip_count</code>, <code>circumcircle</code>, <code>concave_hull</code>, <code>convex_hull</code>, <code>hull_ratio</code>, <code>type</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of an ancestor of Genus:Sp1?</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, target =&gt; <span class="fl">0.5</span>)</span>
@@ -428,8 +428,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If more than one of <code>convex_hull</code>, <code>concave_hull</code> and <code>circumcircle</code> arguments are passed then only one i run. The convex hull takes priority, followed by the circumcircle, and lastly the concave hull.</p>
 <p>An optional <code>buffer_dist</code> argument can be used to adjust the size of the convex/concave hull or circumcircle. As is standard with GIS buffering, positive values increase the area while negative values shrink it.</p>
 <p>The <code>label</code> argument should normally be specified but in some circumstances a default is set (e.g.&nbsp;when a randomisation seed location is set).</p>
-<p><strong>Required args:</strong> label</p>
-<p><strong>Optional args:</strong> allow_holes, axes, buffer_dist, circumcircle, concave_hull, convex_hull, hull_ratio, type</p>
+<p><strong>Required args:</strong> <code>label</code></p>
+<p><strong>Optional args:</strong> <code>allow_holes</code>, <code>axes</code>, <code>buffer_dist</code>, <code>circumcircle</code>, <code>concave_hull</code>, <code>convex_hull</code>, <code>hull_ratio</code>, <code>type</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of label called Genus:Sp1?</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>)</span>
@@ -489,7 +489,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="sp_in_line_with">sp_in_line_with</h3>
 <p>Are we in line with a vector radiating out from the processing cell? Use the <code>axes</code> argument to control which are used (default is <code>[0,1]</code>).</p>
 <p><strong>Required args:</strong> <em>none</em></p>
-<p><strong>Optional args:</strong> axes, vector_angle, vector_angle_deg</p>
+<p><strong>Optional args:</strong> <code>axes</code>, <code>vector_angle</code>, <code>vector_angle_deg</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sp_in_line_with (vector_angle =&gt; <span class="fu">Math::Trig</span>::<span class="fu">pip2</span>) <span class="co">#  pi/2 = 90 degree angle</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
@@ -497,7 +497,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="sp_is_left_of">sp_is_left_of</h3>
 <p>Are we to the left of a vector radiating out from the processing cell? Use the <code>axes</code> argument to control which are used (default is <code>[0,1]</code>).</p>
 <p><strong>Required args:</strong> <em>none</em></p>
-<p><strong>Optional args:</strong> axes, vector_angle, vector_angle_deg</p>
+<p><strong>Optional args:</strong> <code>axes</code>, <code>vector_angle</code>, <code>vector_angle_deg</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sp_is_left_of (vector_angle =&gt; <span class="fl">1.5714</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
@@ -505,15 +505,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="sp_is_right_of">sp_is_right_of</h3>
 <p>Are we to the right of a vector radiating out from the processing cell? Use the <code>axes</code> argument to control which are used (default is <code>[0,1]</code>).</p>
 <p><strong>Required args:</strong> <em>none</em></p>
-<p><strong>Optional args:</strong> axes, vector_angle, vector_angle_deg</p>
+<p><strong>Optional args:</strong> <code>axes</code>, <code>vector_angle</code>, <code>vector_angle_deg</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sp_is_right_of (vector_angle =&gt; <span class="fl">1.5714</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_match_regex" class="level3">
 <h3 class="anchored" data-anchor-id="sp_match_regex">sp_match_regex</h3>
 <p>Select all neighbours with an axis matching a regular expression</p>
-<p><strong>Required args:</strong> re</p>
-<p><strong>Optional args:</strong> axis, type</p>
+<p><strong>Required args:</strong> <code>re</code></p>
+<p><strong>Optional args:</strong> <code>axis</code>, <code>type</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  use any neighbour where the first axis includes the text "type1"</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sp_match_regex (re =&gt; <span class="ot">qr'type1'</span>, axis =&gt; <span class="dv">0</span>, type =&gt; <span class="ot">'</span><span class="ss">nbr</span><span class="ot">'</span>)</span>
@@ -533,8 +533,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_match_text" class="level3">
 <h3 class="anchored" data-anchor-id="sp_match_text">sp_match_text</h3>
 <p>Select all neighbours matching a text string</p>
-<p><strong>Required args:</strong> text</p>
-<p><strong>Optional args:</strong> axis, type</p>
+<p><strong>Required args:</strong> <code>text</code></p>
+<p><strong>Optional args:</strong> <code>axis</code>, <code>type</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  use any neighbour where the first axis has value of "type1"</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sp_match_text (text =&gt; <span class="ot">'</span><span class="ss">type1</span><span class="ot">'</span>, axis =&gt; <span class="dv">0</span>, type =&gt; <span class="ot">'</span><span class="ss">nbr</span><span class="ot">'</span>)</span>
@@ -553,8 +553,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_point_in_cluster" class="level3">
 <h3 class="anchored" data-anchor-id="sp_point_in_cluster">sp_point_in_cluster</h3>
 <p>Returns true when the group is in a cluster or region grower output cluster.</p>
-<p><strong>Required args:</strong> output</p>
-<p><strong>Optional args:</strong> element, from_node</p>
+<p><strong>Required args:</strong> <code>output</code></p>
+<p><strong>Optional args:</strong> <code>element</code>, <code>from_node</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Use any element that is a terminal in the cluster output.</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  This is useful if the cluster analysis was run under</span></span>
@@ -580,8 +580,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_point_in_poly" class="level3">
 <h3 class="anchored" data-anchor-id="sp_point_in_poly">sp_point_in_poly</h3>
 <p>Select groups that occur within a user-defined polygon (see sp_point_in_poly_shape for an alternative)</p>
-<p><strong>Required args:</strong> polygon</p>
-<p><strong>Optional args:</strong> point</p>
+<p><strong>Required args:</strong> <code>polygon</code></p>
+<p><strong>Optional args:</strong> <code>point</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a square polygon?</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly (</span>
@@ -592,8 +592,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_point_in_poly_shape" class="level3">
 <h3 class="anchored" data-anchor-id="sp_point_in_poly_shape">sp_point_in_poly_shape</h3>
 <p>Select groups that occur within a polygon or polygons extracted from a shapefile</p>
-<p><strong>Required args:</strong> file</p>
-<p><strong>Optional args:</strong> axes, field_name, field_val, no_cache, point</p>
+<p><strong>Required args:</strong> <code>file</code></p>
+<p><strong>Optional args:</strong> <code>axes</code>, <code>field_name</code>, <code>field_val</code>, <code>no_cache</code>, <code>point</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a shapefile?</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly_shape (</span>
@@ -617,8 +617,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_points_in_same_cluster" class="level3">
 <h3 class="anchored" data-anchor-id="sp_points_in_same_cluster">sp_points_in_same_cluster</h3>
 <p>Returns true when two points are within the same cluster or region grower group, or if neither point is in the selected clusters/groups.</p>
-<p><strong>Required args:</strong> output</p>
-<p><strong>Optional args:</strong> from_node, group_by_depth, num_clusters, target_distance</p>
+<p><strong>Required args:</strong> <code>output</code></p>
+<p><strong>Optional args:</strong> <code>from_node</code>, <code>group_by_depth</code>, <code>num_clusters</code>, <code>target_distance</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Try to use the highest four clusters from the root.</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  Note that the next highest number will be used</span></span>
@@ -661,8 +661,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_points_in_same_poly_shape" class="level3">
 <h3 class="anchored" data-anchor-id="sp_points_in_same_poly_shape">sp_points_in_same_poly_shape</h3>
 <p>Returns true when two points are within the same shapefile polygon</p>
-<p><strong>Required args:</strong> file</p>
-<p><strong>Optional args:</strong> axes, no_cache, point1, point2</p>
+<p><strong>Required args:</strong> <code>file</code></p>
+<p><strong>Optional args:</strong> <code>axes</code>, <code>no_cache</code>, <code>point1</code>, <code>point2</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  define neighbour sets using a shapefile</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (file =&gt; <span class="ot">'</span><span class="ss">path/to/a/shapefile</span><span class="ot">'</span>)</span>
@@ -690,8 +690,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_rectangle" class="level3">
 <h3 class="anchored" data-anchor-id="sp_rectangle">sp_rectangle</h3>
 <p>A rectangle. Assessed against all dimensions by default (more properly called a hyperbox) but use the optional <code>axes =&gt; []</code> arg to specify a subset. Uses group (map) distances.</p>
-<p><strong>Required args:</strong> sizes</p>
-<p><strong>Optional args:</strong> axes</p>
+<p><strong>Required args:</strong> <code>sizes</code></p>
+<p><strong>Optional args:</strong> <code>axes</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  A rectangle of equal size on the first two axes,</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  and 100 on the third.</span></span>
@@ -710,8 +710,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_redundancy_greater_than" class="level3">
 <h3 class="anchored" data-anchor-id="sp_redundancy_greater_than">sp_redundancy_greater_than</h3>
 <p>Return true if the sample redundancy for an element is greater than the threshold.</p>
-<p><strong>Required args:</strong> threshold</p>
-<p><strong>Optional args:</strong> element</p>
+<p><strong>Required args:</strong> <code>threshold</code></p>
+<p><strong>Optional args:</strong> <code>element</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Uses the processing group for definition queries,</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  and the neighbour group for spatial conditions.</span></span>
@@ -729,8 +729,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_richness_greater_than" class="level3">
 <h3 class="anchored" data-anchor-id="sp_richness_greater_than">sp_richness_greater_than</h3>
 <p>Return true if the richness for an element is greater than the threshold.</p>
-<p><strong>Required args:</strong> threshold</p>
-<p><strong>Optional args:</strong> element</p>
+<p><strong>Required args:</strong> <code>threshold</code></p>
+<p><strong>Optional args:</strong> <code>element</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Uses the processing group for definition queries,</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  and the neigbour group for spatial conditions.</span></span>
@@ -754,8 +754,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_select_block" class="level3">
 <h3 class="anchored" data-anchor-id="sp_select_block">sp_select_block</h3>
 <p>Select a subset of all available neighbours based on a block sample sequence</p>
-<p><strong>Required args:</strong> size</p>
-<p><strong>Optional args:</strong> count, prng_seed, random, reverse_order, use_cache</p>
+<p><strong>Required args:</strong> <code>size</code></p>
+<p><strong>Optional args:</strong> <code>count</code>, <code>prng_seed</code>, <code>random</code>, <code>reverse_order</code>, <code>use_cache</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select up to two groups per block with each block being 5 groups</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>on a side where the group size is <span class="dv">100</span></span>
@@ -773,8 +773,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_select_element" class="level3">
 <h3 class="anchored" data-anchor-id="sp_select_element">sp_select_element</h3>
 <p>Select a specific element. Basically the same as sp_match_text, but with optimisations enabled</p>
-<p><strong>Required args:</strong> element</p>
-<p><strong>Optional args:</strong> type</p>
+<p><strong>Required args:</strong> <code>element</code></p>
+<p><strong>Optional args:</strong> <code>type</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># match where the whole coordinate ID (element name)</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># is 'Biome1:savannah forest'</span></span>
@@ -783,8 +783,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_select_sequence" class="level3">
 <h3 class="anchored" data-anchor-id="sp_select_sequence">sp_select_sequence</h3>
 <p>Select a subset of all available neighbours based on a sample sequence (note that groups are sorted south-west to north-east)</p>
-<p><strong>Required args:</strong> frequency</p>
-<p><strong>Optional args:</strong> cycle_offset, first_offset, reverse_order, use_cache</p>
+<p><strong>Required args:</strong> <code>frequency</code></p>
+<p><strong>Optional args:</strong> <code>cycle_offset</code>, <code>first_offset</code>, <code>reverse_order</code>, <code>use_cache</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select every tenth group (groups are sorted alphabetically)</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sp_select_sequence (frequency =&gt; <span class="dv">10</span>)</span>
@@ -812,7 +812,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="sp_spatial_output_passed_defq">sp_spatial_output_passed_defq</h3>
 <p>Returns 1 if an element passed the definition query for a previously calculated spatial output</p>
 <p><strong>Required args:</strong> <em>none</em></p>
-<p><strong>Optional args:</strong> element, output</p>
+<p><strong>Optional args:</strong> <code>element</code>, <code>output</code></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Used for spatial or cluster type analyses:</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  The simplest case is where the current</span></span>
@@ -834,7 +834,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_square" class="level3">
 <h3 class="anchored" data-anchor-id="sp_square">sp_square</h3>
 <p>An overlapping square assessed against all dimensions (more properly called a hypercube). Uses group (map) distances.</p>
-<p><strong>Required args:</strong> size</p>
+<p><strong>Required args:</strong> <code>size</code></p>
 <p><strong>Optional args:</strong> <em>none</em></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  An overlapping square, cube or hypercube</span></span>
@@ -846,7 +846,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_square_cell" class="level3">
 <h3 class="anchored" data-anchor-id="sp_square_cell">sp_square_cell</h3>
 <p>A square assessed against all dimensions (more properly called a hypercube). Uses 'cell' distances.</p>
-<p><strong>Required args:</strong> size</p>
+<p><strong>Required args:</strong> <code>size</code></p>
 <p><strong>Optional args:</strong> <em>none</em></p>
 <p><strong>Example:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>sp_square_cell (size =&gt; <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
