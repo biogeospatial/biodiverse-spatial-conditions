@@ -238,7 +238,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Functions are the easiest way to specify conditions as one does not need to wrestle with variables. Functions also set metadata to tell the system how to use the spatial index. The <a href="https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#building-a-spatial-index" class="external" target="&quot;_blank&quot;">spatial index</a> saves considerable processing time for large data sets as the system does not need to test many pairs of index blocks to determine which to use. If you use a function for which an index will produce erroneous results then the system sets a flag to ignore it. You can also disable it in the settings for a spatial condition.</p>
+<p>Functions are the easiest way to specify conditions as one does not need to wrestle with variables.</p>
+<p>Functions also set metadata to tell the system how to use the spatial index. The <a href="https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#building-a-spatial-index" class="external" target="_blank">spatial index</a> saves considerable processing time for large data sets as the system does not need to test many pairs of index blocks to determine which to use. If you use a function for which an index will produce erroneous results then the system sets a flag to ignore it. You can also disable it in the settings for a spatial condition.</p>
 <section id="available-functions" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="available-functions"><span class="header-section-number">3.1</span> Available functions</h2>
 <p>The available functions in version 5.0 are: <a href="#sp_annulus"><em>sp_annulus</em></a>, <a href="#sp_block"><em>sp_block</em></a>, <a href="#sp_circle"><em>sp_circle</em></a>, <a href="#sp_circle_cell"><em>sp_circle_cell</em></a>, <a href="#sp_ellipse"><em>sp_ellipse</em></a>, <a href="#sp_get_spatial_output_list_value"><em>sp_get_spatial_output_list_value</em></a>, <a href="#sp_group_not_empty"><em>sp_group_not_empty</em></a>, <a href="#sp_in_label_ancestor_range"><em>sp_in_label_ancestor_range</em></a>, <a href="#sp_in_label_range"><em>sp_in_label_range</em></a>, <a href="#sp_in_line_with"><em>sp_in_line_with</em></a>, <a href="#sp_is_left_of"><em>sp_is_left_of</em></a>, <a href="#sp_is_right_of"><em>sp_is_right_of</em></a>, <a href="#sp_match_regex"><em>sp_match_regex</em></a>, <a href="#sp_match_text"><em>sp_match_text</em></a>, <a href="#sp_point_in_cluster"><em>sp_point_in_cluster</em></a>, <a href="#sp_point_in_poly"><em>sp_point_in_poly</em></a>, <a href="#sp_point_in_poly_shape"><em>sp_point_in_poly_shape</em></a>, <a href="#sp_points_in_same_cluster"><em>sp_points_in_same_cluster</em></a>, <a href="#sp_points_in_same_poly_shape"><em>sp_points_in_same_poly_shape</em></a>, <a href="#sp_rectangle"><em>sp_rectangle</em></a>, <a href="#sp_redundancy_greater_than"><em>sp_redundancy_greater_than</em></a>, <a href="#sp_richness_greater_than"><em>sp_richness_greater_than</em></a>, <a href="#sp_select_all"><em>sp_select_all</em></a>, <a href="#sp_select_block"><em>sp_select_block</em></a>, <a href="#sp_select_element"><em>sp_select_element</em></a>, <a href="#sp_select_sequence"><em>sp_select_sequence</em></a>, <a href="#sp_self_only"><em>sp_self_only</em></a>, <a href="#sp_spatial_output_passed_defq"><em>sp_spatial_output_passed_defq</em></a>, <a href="#sp_square"><em>sp_square</em></a>, <a href="#sp_square_cell"><em>sp_square_cell</em></a>,</p>
@@ -343,8 +344,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sp_in_label_ancestor_range" class="level3">
 <h3 class="anchored" data-anchor-id="sp_in_label_ancestor_range">sp_in_label_ancestor_range</h3>
 <p>(Available from version 5.1)</p>
-<p>Is a group within the range of a label's ancestor?</p>
-<p>Returns true if the group falls within the range of any of the any of the ancestor's terminal descendant ranges. The range is by default defined as the set of groups in the basedata containing that label. Polygons can also be specified (see below).</p>
+<p>Is a group within the range of a label’s ancestor?</p>
+<p>Returns true if the group falls within the range of any of the any of the ancestor’s terminal descendant ranges. The range is by default defined as the set of groups in the basedata containing that label. Polygons can also be specified (see below).</p>
 <p>The ancestor is by default defined by length along the path to the root node. Setting the <code>by_depth</code> option to true uses the number of ancestors. The <code>by_tip_count</code> option finds the first ancestor with at least the target number of tips while <code>by_desc_count</code> uses the number of descendants (tips and internals). The <code>by_len_sum</code> finds the first ancestor for which the sum of its descendant branch lengths plus its own length is greater than the target.</p>
 <p>Negative target values with <code>by_length</code> or <code>by_depth</code> search the path from the root to the specified node. However, if a <code>by_*_count</code> option is used then a negative <code>target</code> is treated as zero and returns the specified label range is returned.</p>
 <p>The <code>target</code> argument determines how far up or down the tree the ancestor is searched for. When using length, the distance includes the tipwards extent of the branch. The depth is calculated as the number of ancestors.</p>
@@ -355,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If the <code>eq</code> argument is true then the branch lengths are all treated as of equal length (the mean of the non-zero branch lengths), although zero length branches remain zero. This is the same as the alternate tree used in CANAPE.</p>
 <p>If the <code>rw</code> argument is true then the branches are range weighted. This is the same as the range weighted tree in CANAPE. When both <code>eq</code> and <code>rw</code> are true then this is the same as the range weighted alternate tree in CANAPE</p>
 <p>The underlying algorithm checks each of the terminal ranges using <a href="#sp_in_label_range">sp_in_label_range()</a>. This means the search can also use the convex/concave hull or circumcircle of each terminal, as well as setting other arguments such as the <code>buffer_dist</code> and using a default label in some circumstances.</p>
-<p>Note that the range of each of the ancestor's tips is assessed separately, i.e.&nbsp;the union of the hulls/circles is used. The ranges are not aggregated before a hull or circumcircle is calculated.</p>
+<p>Note that the range of each of the ancestor’s tips is assessed separately, i.e.&nbsp;the union of the hulls/circles is used. The ranges are not aggregated before a hull or circumcircle is calculated.</p>
 <p><strong>Required args:</strong> <code>label</code>, <code>target</code></p>
 <p><strong>Optional args:</strong> <code>allow_holes</code>, <code>as_frac</code>, <code>axes</code>, <code>buffer_dist</code>, <code>by_depth</code>, <code>by_tip_count</code>, <code>circumcircle</code>, <code>concave_hull</code>, <code>convex_hull</code>, <code>hull_ratio</code>, <code>type</code></p>
 <p><strong>Example:</strong></p>
@@ -413,12 +414,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>  target     =&gt; <span class="dv">10</span>,</span>
 <span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>  by_desc_count =&gt; <span class="dv">1</span>,</span>
 <span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_in_label_range" class="level3">
 <h3 class="anchored" data-anchor-id="sp_in_label_range">sp_in_label_range</h3>
 <p>(Available from version 5.1)</p>
-<p>Is a group within a label's range?</p>
+<p>Is a group within a label’s range?</p>
 <p>This is by default assessed as a check of whether the label is found in the processing group but can be generalised by using the <code>convex_hull</code>, <code>concave_hull</code> or <code>circumcircle</code> arguments.</p>
 <p>The <code>type</code> argument determines if the processing or neighbour group is assessed. Normally this can be left as the default.</p>
 <p>The <code>convex_hull</code> returns true if the processing group is within the convex hull defined by the groups that form the label range.</p>
@@ -528,7 +530,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a definition query to only use groups where the</span></span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># third axis ends in 'park' (case insensitive)</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>sp_match_regex (text =&gt; <span class="ot">qr{park</span><span class="ch">$</span><span class="ot">}i</span>, axis =&gt; <span class="dv">2</span>, type =&gt; <span class="ot">'</span><span class="ss">proc</span><span class="ot">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>sp_match_regex (text =&gt; <span class="ot">qr{park</span><span class="ch">$</span><span class="ot">}i</span>, axis =&gt; <span class="dv">2</span>, type =&gt; <span class="ot">'</span><span class="ss">proc</span><span class="ot">'</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_match_text" class="level3">
 <h3 class="anchored" data-anchor-id="sp_match_text">sp_match_text</h3>
@@ -575,7 +578,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  from_node    =&gt; <span class="ot">'</span><span class="ss">118___</span><span class="ot">'</span>,  <span class="co">#  use the node's name</span></span>
 <span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  element      =&gt; <span class="ot">'</span><span class="ss">123:456</span><span class="ot">'</span>, <span class="co">#  specify an element to check</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_point_in_poly" class="level3">
 <h3 class="anchored" data-anchor-id="sp_point_in_poly">sp_point_in_poly</h3>
@@ -587,7 +591,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly (</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    polygon =&gt; [[<span class="dv">0</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">0</span>]],</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    point   =&gt; \<span class="dt">@nbrcoord</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_point_in_poly_shape" class="level3">
 <h3 class="anchored" data-anchor-id="sp_point_in_poly_shape">sp_point_in_poly_shape</h3>
@@ -656,7 +661,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>  output          =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
 <span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>  num_clusters    =&gt; <span class="dv">4</span>,</span>
 <span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>  target_distance =&gt; <span class="fl">0.25</span>,</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_points_in_same_poly_shape" class="level3">
 <h3 class="anchored" data-anchor-id="sp_points_in_same_poly_shape">sp_points_in_same_poly_shape</h3>
@@ -685,7 +691,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (</span>
 <span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    file =&gt; <span class="ot">'</span><span class="ss">path/to/a/shapefile</span><span class="ot">'</span>,</span>
 <span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    axes =&gt; [<span class="dv">1</span>,<span class="dv">2</span>],</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_rectangle" class="level3">
 <h3 class="anchored" data-anchor-id="sp_rectangle">sp_rectangle</h3>
@@ -845,7 +852,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="sp_square_cell" class="level3">
 <h3 class="anchored" data-anchor-id="sp_square_cell">sp_square_cell</h3>
-<p>A square assessed against all dimensions (more properly called a hypercube). Uses 'cell' distances.</p>
+<p>A square assessed against all dimensions (more properly called a hypercube). Uses ‘cell’ distances.</p>
 <p><strong>Required args:</strong> <code>size</code></p>
 <p><strong>Optional args:</strong> <em>none</em></p>
 <p><strong>Example:</strong></p>
