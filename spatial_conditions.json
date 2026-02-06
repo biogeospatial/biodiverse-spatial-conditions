@@ -1,0 +1,335 @@
+{
+   "conditions" : {
+      "sp_annulus" : {
+         "description" : "An annulus.  Assessed against all dimensions by default\nbut use the optional `axes => []` arg to specify a subset.\nUses group (map) distances.\n",
+         "example" : "#  an annulus assessed against all axes\nsp_annulus (inner_radius => 2000000, outer_radius => 4000000)\n\n#  an annulus assessed against axes 0 and 1\nsp_annulus (inner_radius => 2000000, outer_radius => 4000000, axes => [0,1])\n",
+         "optional_args" : [
+            "axes"
+         ],
+         "required_args" : [
+            "inner_radius",
+            "outer_radius"
+         ]
+      },
+      "sp_block" : {
+         "description" : "A non-overlapping block.  Set an axis to undef to ignore it.",
+         "example" : "sp_block (size => 3)\nsp_block (size => [3,undef,5]) #  rectangular block, ignores second axis",
+         "optional_args" : [
+            "origin"
+         ],
+         "required_args" : [
+            "size"
+         ]
+      },
+      "sp_circle" : {
+         "description" : "A circle.  Assessed against all dimensions by default\n(more properly called a hypersphere)\nbut you can use the optional `axes => []` arg to specify a subset.\nUses group (map) distances.\n",
+         "example" : "#  A circle of radius 1000 across all axes\nsp_circle (radius => 1000)\n\n#  use only axes 0 and 3\nsp_circle (radius => 1000, axes => [0, 3])\n",
+         "optional_args" : [
+            "axes"
+         ],
+         "required_args" : [
+            "radius"
+         ]
+      },
+      "sp_circle_cell" : {
+         "description" : "A circle.  Assessed against all dimensions by default\n(more properly called a hypersphere)\nbut you can use the optional `axes => []` arg to specify a subset.\nUses cell (map) distances.\n",
+         "example" : "#  A circle of radius 3 cells across all axes\nsp_circle (radius => 3)\n\n#  use only axes 0 and 3\nsp_circle_cell (radius => 3, axes => [0, 3])\n",
+         "optional_args" : [],
+         "required_args" : [
+            "radius"
+         ]
+      },
+      "sp_ellipse" : {
+         "description" : "A two dimensional ellipse.  Use the `axes` argument to control which are used (default is `[0,1]`).  The default rotate_angle is 0, such that the major axis is east-west.",
+         "example" : "# North-south aligned ellipse\nsp_ellipse (\n    major_radius => 300000,\n    minor_radius => 100000,\n    axes         => [0,1],\n    rotate_angle => 1.5714,\n)\n",
+         "optional_args" : [
+            "axes",
+            "rotate_angle",
+            "rotate_angle_deg"
+         ],
+         "required_args" : [
+            "major_radius",
+            "minor_radius"
+         ]
+      },
+      "sp_get_spatial_output_list_value" : {
+         "description" : "Obtain a value from a list in a previously calculated spatial output.",
+         "example" : "#  Get the spatial results value for the current neighbour group\n# (or processing group if used as a def query)\nsp_get_spatial_output_list_value (\n    output  => 'sp1',              #  using spatial output called sp1\n    list    => 'SPATIAL_RESULTS',  #  from the SPATIAL_RESULTS list\n    index   => 'PE_WE_P',          #  get index value for PE_WE_P\n)\n\n#  Get the spatial results value for group 128:254\n#  Note that the SPATIAL_OUTPUTS list is assumed if\n#  no 'list' arg is passed.\nsp_get_spatial_output_list_value (\n    output  => 'sp1',\n    element => '128:254',\n    index   => 'PE_WE_P',\n)\n",
+         "optional_args" : [
+            "list",
+            "element",
+            "no_error_if_no_index"
+         ],
+         "required_args" : [
+            "output",
+            "index"
+         ]
+      },
+      "sp_group_not_empty" : {
+         "description" : "Is a basedata group non-empty? (i.e. contains one or more labels)",
+         "example" : "# Restrict calculations to those non-empty groups.\n#  Will use the processing group if a def query,\n#  the neighbour group otherwise.\nsp_group_not_empty ()\n\n# The same as above, but being specific about which group (element) to test.\n#  This is probably best used in cases where the element\n#  to check is varied spatially.}\nsp_group_not_empty (element => '5467:9876')\n",
+         "optional_args" : [
+            "element"
+         ],
+         "required_args" : []
+      },
+      "sp_in_label_ancestor_range" : {
+         "description" : "(Available from version 5.1)\n\nIs a group within the range of a label's ancestor?\n\nReturns true if the group falls within the range of\nany of the any of the ancestor's terminal descendant\nranges.  The range is by default defined as the set of\ngroups in the basedata containing that label.  Polygons\ncan also be specified (see below).\n\nThe ancestor is by default defined by length along the \npath to the root node. Setting the `by_depth` option to true\nuses the number of ancestors.  The `by_tip_count` option\nfinds the first ancestor with at least the target number\nof tips while `by_desc_count` uses the number of descendants\n(tips and internals). The `by_len_sum` finds the first ancestor\nfor which the sum of its descendant branch lengths plus\nits own length is greater than the target.\n\nNegative target values with `by_length` or `by_depth` search the path\nfrom the root to the specified node. However, if a `by_*_count`\noption is used then a negative `target` is treated as\nzero and returns the specified label range is returned.\n\nThe `target` argument determines how far up or down the tree\nthe ancestor is searched for.  When using length,\nthe distance includes the tipwards extent\nof the branch. The depth is calculated as the number\nof ancestors.\n\nIf the `target` value exceeds that to (or of) the root node\nthen the root or label node is returned for positive or\nnegative dist values, respectively.\n\nAn internal branch can be specified as the label.\nSpecifying a `target` of 0 for an internal node\nis one means to use the range of an internal node.\n\nReturns false if the label is not associated with\na node on the tree.\n\nWhen the `as_frac` argument is true then target is\ntreated as a fraction of the distance to the root\nnode, the number of tips, or the sum of all branches,\nas appropriate.\n\nIf the `eq` argument is true then the branch lengths are all\ntreated as of equal length (the mean of the non-zero branch\nlengths), although zero length branches remain zero.\nThis is the same as the alternate tree used in CANAPE.\n\nIf the `rw` argument is true then the branches are range\nweighted.  This is the same as the range weighted\ntree in CANAPE.  When both `eq` and `rw` are true then\nthis is the same as the range weighted alternate tree\nin CANAPE\n\nThe underlying algorithm checks each of the terminal\nranges using [sp_in_label_range()](#sp_in_label_range).\nThis means the search can also use the convex/concave\nhull or circumcircle of each terminal, as well as\nsetting other arguments such as the `buffer_dist`\nand using a default label in some circumstances.\n\nNote that the range of each of the ancestor's tips\nis assessed separately, i.e. the union of the\nhulls/circles is used.  The ranges are not aggregated\nbefore a hull or circumcircle is calculated.\n\n",
+         "example" : "# Are we in the range of an ancestor of Genus:Sp1?\nsp_in_label_ancestor_range(label => 'Genus:Sp1', target => 0.5)\n\n# Are we in the range of the \"grandmother\" of Genus:Sp1?\nsp_in_label_ancestor_range(\n  label    => 'Genus:Sp1',\n  target   => 2,\n  by_depth => 1,\n)\n\n# Are we in the range of the first ancestor with 6 or more tips?\nsp_in_label_ancestor_range(\n  label        => 'Genus:Sp1',\n  target       => 6,\n  by_tip_count => 1,\n)\n\n#  Are we in any of the tips' convex hulls?\nsp_in_label_ancestor_range(\n  label       => 'Genus:Sp1',\n  target      => 0.5,\n  convex_hull => 1,\n)\n\n#  Are we in any of the tips' concave hulls with a ratio parameter of 0.5?\nsp_in_label_ancestor_range(\n  label        => 'Genus:Sp1',\n  target       => 0.5,\n  concave_hull => 1,\n  hull_ratio   => 0.5,\n)\n\n#  Are we in any of the tips' circumscribing circles?\nsp_in_label_ancestor_range(\n  label        => 'Genus:Sp1',\n  target       => 0.5,\n  circumcircle => 1,\n)\n\n#  Are we in the range of the ancestor for which the sum of\n#  branch lengths below and including it is 10,000?\nsp_in_label_ancestor_range(\n  label      => 'Genus:Sp1',\n  target     => 10000,\n  by_len_sum => 1,\n)\n\n#  Are we in the range of the ancestor for which the sum of\n#  number of branches below is at least 10?\nsp_in_label_ancestor_range(\n  label      => 'Genus:Sp1',\n  target     => 10,\n  by_desc_count => 1,\n)\n\n\n",
+         "optional_args" : [
+            "type",
+            "axes",
+            "circumcircle",
+            "convex_hull",
+            "concave_hull",
+            "hull_ratio",
+            "allow_holes",
+            "buffer_dist",
+            "by_depth",
+            "as_frac",
+            "by_tip_count"
+         ],
+         "required_args" : [
+            "label",
+            "target"
+         ]
+      },
+      "sp_in_label_range" : {
+         "description" : "(Available from version 5.1)\n\nIs a group within a label's range?\n\nThis is by default assessed as a check of whether the\nlabel is found in the processing group but can\nbe generalised by using the `convex_hull`, `concave_hull`\nor `circumcircle` arguments.\n\nThe `type` argument determines if the\nprocessing or neighbour group is assessed.\nNormally this can be left as the default.\n\nThe `convex_hull` returns true if the processing group\nis within the convex hull defined by the groups that form\nthe label range.\n\nThe `circumcircle` returns true if the processing group\nis within the minimum circumscribing circle that\nincludes all of the label range groups.\n\nThe `concave_hull` returns true if the processing group\nis within the concave hull defined by the groups that form\nthe label range.  The concavity can be controlled by the\n`hull_ratio` argument, and holes can be allowed by setting the\nboolean argument `allow_holes` to a true value.\n\nBoth the latter two arguments use the first two axes by default\nand will return an error if there is only one group axis in the basedata.\nIf you have more than two axes and wish to assess different ones\nthen pass the axes argument. (This argument is ignored for the\ndefault case as it does a direct comparison of the group names).\n\nIf more than one of `convex_hull`, `concave_hull` and `circumcircle`\narguments are passed then only one i run.  The convex hull takes\npriority, followed by the circumcircle, and lastly the concave hull.\n\nAn optional `buffer_dist` argument can be used to adjust the size\nof the convex/concave hull or circumcircle.  As is standard with\nGIS buffering, positive values increase the area while negative\nvalues shrink it.\n\nThe `label` argument should normally be specified but in some\ncircumstances a default is set (e.g. when a randomisation\nseed location is set).\n",
+         "example" : "# Are we in the range of label called Genus:Sp1?\nsp_in_label_range(label => 'Genus:Sp1')\n\n#  Are we in the convex hull?\nsp_in_label_range(label => 'Genus:Sp1', convex_hull => 1)\n\n#  Are we in the maximally concave hull?\nsp_in_label_range(label => 'Genus:Sp1', concave_hull => 1)\n\n#  Are we in a slightly less concave hull?\nsp_in_label_range(label => 'Genus:Sp1', concave_hull => 1, hull_ratio => 0.3)\n\n#  Are we in a slightly less concave hull allowing for holes?\nsp_in_label_range(\n    label        => 'Genus:Sp1',\n    concave_hull => 1,\n    hull_ratio   => 0.3,\n    allow_holes  => 1,\n)\n\n#  Are we in the circumscribing circle?\nsp_in_label_range(label => 'Genus:Sp1', circumcircle => 1)\n\n#  Are we in the convex hull with a buffer of 100,000 units?\nsp_in_label_range(\n    label       => 'Genus:Sp1',\n    convex_hull => 1,\n    buffer_dist => 100000,\n)\n\n#  Buffers can be negative, in which case the\n#  convex/concave hull or circumcircle is shrunk\nsp_in_label_range(\n    label       => 'Genus:Sp1',\n    convex_hull => 1,\n    buffer_dist => -100000,\n)\n\n#  Are we in the convex hull defined using the\n#  coordinates from the third and first axes?\nsp_in_label_range(\n    label       => 'Genus:Sp1',\n    convex_hull => 1,\n    axes        => [2,0],\n)\n\n#  A convex hull with holes and \"half\" concave.\nsp_in_label_range(\n    label        => 'Genus:Sp1',\n    concave_hull => 1,\n    allow_holes  => 1,\n    hull_ratio   => 0.5,\n)\n",
+         "optional_args" : [
+            "type",
+            "axes",
+            "circumcircle",
+            "convex_hull",
+            "concave_hull",
+            "hull_ratio",
+            "allow_holes",
+            "buffer_dist"
+         ],
+         "required_args" : [
+            "label"
+         ]
+      },
+      "sp_in_line_with" : {
+         "description" : "Are we in line with a vector radiating out from the processing cell?\nUse the `axes` argument to control which are used (default is `[0,1]`).\n",
+         "example" : "sp_in_line_with (vector_angle => Math::Trig::pip2) #  pi/2 = 90 degree angle",
+         "optional_args" : [
+            "axes",
+            "vector_angle",
+            "vector_angle_deg"
+         ],
+         "required_args" : []
+      },
+      "sp_is_left_of" : {
+         "description" : "Are we to the left of a vector radiating out from the processing cell?\nUse the `axes` argument to control which are used (default is `[0,1]`).\n",
+         "example" : "sp_is_left_of (vector_angle => 1.5714)",
+         "optional_args" : [
+            "axes",
+            "vector_angle",
+            "vector_angle_deg"
+         ],
+         "required_args" : []
+      },
+      "sp_is_right_of" : {
+         "description" : "Are we to the right of a vector radiating out from the processing cell?\nUse the `axes` argument to control which are used (default is `[0,1]`).\n",
+         "example" : "sp_is_right_of (vector_angle => 1.5714)",
+         "optional_args" : [
+            "axes",
+            "vector_angle",
+            "vector_angle_deg"
+         ],
+         "required_args" : []
+      },
+      "sp_match_regex" : {
+         "description" : "Select all neighbours with an axis matching a regular expression",
+         "example" : "#  use any neighbour where the first axis includes the text \"type1\"\nsp_match_regex (re => qr'type1', axis => 0, type => 'nbr')\n\n# match only when the third neighbour axis starts with\n# the processing group's second axis\nsp_match_regex (re => qr/^$coord[2]/, axis => 2, type => 'nbr')\n\n# match the whole coordinate ID (element name)\n# where Biome can be 1 or 2 and the rest of the name contains \"dry\"\nsp_match_regex (re => qr/^Biome[12]:.+dry/)\n\n# Set a definition query to only use groups where the\n# third axis ends in 'park' (case insensitive)\nsp_match_regex (text => qr{park$}i, axis => 2, type => 'proc')\n\n",
+         "optional_args" : [
+            "type",
+            "axis"
+         ],
+         "required_args" : [
+            "re"
+         ]
+      },
+      "sp_match_text" : {
+         "description" : "Select all neighbours matching a text string",
+         "example" : "#  use any neighbour where the first axis has value of \"type1\"\nsp_match_text (text => 'type1', axis => 0, type => 'nbr')\n\n# match only when the third neighbour axis is the same\n#   as the processing group's second axis\nsp_match_text (text => $coord[2], axis => 2, type => 'nbr')\n\n# match where the whole coordinate ID (element name)\n# is 'Biome1:savannah forest'\nsp_match_text (text => 'Biome1:savannah forest')\n\n# Set a definition query to only use groups with 'NK' in the third axis\nsp_match_text (text => 'NK', axis => 2, type => 'proc')\n",
+         "optional_args" : [
+            "axis",
+            "type"
+         ],
+         "required_args" : [
+            "text"
+         ]
+      },
+      "sp_point_in_cluster" : {
+         "description" : "Returns true when the group is in a  cluster or region grower output cluster.",
+         "example" : "#  Use any element that is a terminal in the cluster output.\n#  This is useful if the cluster analysis was run under\n#  a definition query and you want the same set of groups.\nsp_point_in_cluster (\n  output       => \"some_cluster_output\",\n)\n\n#  Now specify a cluster within the output\nsp_point_in_cluster (\n  output       => \"some_cluster_output\",\n  from_node    => '118___',  #  use the node's name\n)\n\n#  Specify an element to check instead of the current\n#  processing element.\nsp_point_in_cluster (\n  output       => \"some_cluster_output\",\n  from_node    => '118___',  #  use the node's name\n  element      => '123:456', #  specify an element to check\n)\n\n",
+         "optional_args" : [
+            "element",
+            "from_node"
+         ],
+         "required_args" : [
+            "output"
+         ]
+      },
+      "sp_point_in_poly" : {
+         "description" : "Select groups that occur within a user-defined polygon \n(see sp_point_in_poly_shape for an alternative)",
+         "example" : "# Is the neighbour coord in a square polygon?\nsp_point_in_poly (\n    polygon => [[0,0],[0,1],[1,1],[1,0],[0,0]],\n    point   => \\@nbrcoord,\n)\n\n",
+         "optional_args" : [
+            "point"
+         ],
+         "required_args" : [
+            "polygon"
+         ]
+      },
+      "sp_point_in_poly_shape" : {
+         "description" : "Select groups that occur within a polygon or polygons extracted from a shapefile",
+         "example" : "# Is the neighbour coord in a shapefile?\nsp_point_in_poly_shape (\n    file  => 'c:\\biodiverse\\data\\coastline_lamberts',\n    point => \\@nbrcoord,\n);\n# Is the neighbour coord in a shapefile's second polygon (counting from 1)?\nsp_point_in_poly_shape (\n    file      => 'c:\\biodiverse\\data\\coastline_lamberts',\n    field_val => 2,\n    point     => \\@nbrcoord,\n);\n# Is the neighbour coord in a polygon with value 2 in the OBJECT_ID field?\nsp_point_in_poly_shape (\n    file       => 'c:\\biodiverse\\data\\coastline_lamberts',\n    field_name => 'OBJECT_ID',\n    field_val  => 2,\n    point      => \\@nbrcoord,\n);\n",
+         "optional_args" : [
+            "point",
+            "field_name",
+            "field_val",
+            "axes",
+            "no_cache"
+         ],
+         "required_args" : [
+            "file"
+         ]
+      },
+      "sp_points_in_same_cluster" : {
+         "description" : "Returns true when two points are within the same  cluster or region grower group, or if  neither point is in the selected clusters/groups.",
+         "example" : "#  Try to use the highest four clusters from the root.\n#  Note that the next highest number will be used\n#  if four is not possible, e.g. there are five\n#  siblings below the root.  Fewer will be returned\n#  if the tree has insufficient tips.\nsp_points_in_same_cluster (\n  output       => \"some_cluster_output\",\n  num_clusters => 4,\n)\n\n#  Cut the tree at a distance of 0.25 from the tips\nsp_points_in_same_cluster (\n  output          => \"some_cluster_output\",\n  target_distance => 0.25,\n)\n\n#  Cut the tree at a depth of 3.\n#  The root is depth 1.\nsp_points_in_same_cluster (\n  output          => \"some_cluster_output\",\n  target_distance => 3,\n  group_by_depth  => 1,\n)\n\n#  work from an arbitrary node\nsp_points_in_same_cluster (\n  output       => \"some_cluster_output\",\n  num_clusters => 4,\n  from_node    => '118___',  #  use the node's name\n)\n\n#  target_distance is ignored if num_clusters is set\nsp_points_in_same_cluster (\n  output          => \"some_cluster_output\",\n  num_clusters    => 4,\n  target_distance => 0.25,\n)\n\n",
+         "optional_args" : [
+            "num_clusters",
+            "group_by_depth",
+            "target_distance",
+            "from_node"
+         ],
+         "required_args" : [
+            "output"
+         ]
+      },
+      "sp_points_in_same_poly_shape" : {
+         "description" : "Returns true when two points are within the same shapefile polygon",
+         "example" : "#  define neighbour sets using a shapefile\nsp_points_in_same_poly_shape (file => 'path/to/a/shapefile')\n\n#  return true when the neighbour coord is in the same\n#  polygon as an arbitrary point\nsp_points_in_same_poly_shape (\n    file   => 'path/to/a/shapefile',\n    point1 => [10,20],\n)\n\n#  reverse the axes\nsp_points_in_same_poly_shape (\n    file => 'path/to/a/shapefile',\n    axes => [1,0],\n)\n\n#  compare against the second and third axes of your data\n#  e.g. maybe you have time as the first basedata axis\nsp_points_in_same_poly_shape (\n    file => 'path/to/a/shapefile',\n    axes => [1,2],\n)\n\n",
+         "optional_args" : [
+            "point1",
+            "point2",
+            "axes",
+            "no_cache"
+         ],
+         "required_args" : [
+            "file"
+         ]
+      },
+      "sp_rectangle" : {
+         "description" : "A rectangle.  Assessed against all dimensions by default\n(more properly called a hyperbox)\nbut use the optional `axes => []` arg to specify a subset.\nUses group (map) distances.\n",
+         "example" : "#  A rectangle of equal size on the first two axes,\n#  and 100 on the third.\nsp_rectangle (sizes => [100000, 100000, 100])\n\n#  The same, but with the axes reordered\n#  (an example of using the axes argument)\nsp_rectangle (\n    sizes => [100000, 100, 100000],\n    axes  => [0, 2, 1],\n)\n\n#  Use only the first an third axes\nsp_rectangle (sizes => [100000, 100000], axes => [0,2])\n",
+         "optional_args" : [
+            "axes"
+         ],
+         "required_args" : [
+            "sizes"
+         ]
+      },
+      "sp_redundancy_greater_than" : {
+         "description" : "Return true if the sample redundancy for an element is greater than the threshold.",
+         "example" : "#  Uses the processing group for definition queries,\n#  and the neighbour group for spatial conditions.\n#  In this example, # any group with a redundncy\n#  score of 0.5 or fewerless will return false\nsp_redundancy_greater_than (\n    threshold => 0.5,\n)\n\nsp_redundancy_greater_than (\n    element   => '128:254',  #  an arbitrary element\n    threshold => 0.2,          #  with a threshold of 0.2\n)\n",
+         "optional_args" : [
+            "element"
+         ],
+         "required_args" : [
+            "threshold"
+         ]
+      },
+      "sp_richness_greater_than" : {
+         "description" : "Return true if the richness for an element is greater than the threshold.",
+         "example" : "#  Uses the processing group for definition queries,\n#  and the neigbour group for spatial conditions.\nsp_richness_greater_than (\n    threshold => 3, # any group with 3 or fewer labels will return false\n)\n\nsp_richness_greater_than (\n    element   => '128:254',  #  an arbitrary element\n    threshold => 4,          #  with a threshold of 4\n)\n",
+         "optional_args" : [
+            "element"
+         ],
+         "required_args" : [
+            "threshold"
+         ]
+      },
+      "sp_select_all" : {
+         "description" : "Select all elements as neighbours",
+         "example" : "sp_select_all() #  select every group",
+         "optional_args" : [],
+         "required_args" : []
+      },
+      "sp_select_block" : {
+         "description" : "Select a subset of all available neighbours based on a block sample sequence",
+         "example" : "# Select up to two groups per block with each block being 5 groups\non a side where the group size is 100\nsp_select_block (size => 500, count => 2)\n\n#  Now do it non-randomly and start from the lower right\nsp_select_block (size => 500, count => 10, random => 0, reverse => 1)\n\n#  Rectangular block with user specified PRNG starting seed\nsp_select_block (size => [300, 500], count => 1, prng_seed => 454678)\n\n# Lower memory footprint (but longer running times for neighbour searches)\nsp_select_block (size => 500, count => 2, clear_cache => 1)\n",
+         "optional_args" : [
+            "count",
+            "use_cache",
+            "reverse_order",
+            "random",
+            "prng_seed"
+         ],
+         "required_args" : [
+            "size"
+         ]
+      },
+      "sp_select_element" : {
+         "description" : "Select a specific element.  Basically the same as sp_match_text, but with optimisations enabled",
+         "example" : "# match where the whole coordinate ID (element name)\n# is 'Biome1:savannah forest'\nsp_select_element (element => 'Biome1:savannah forest')\n",
+         "optional_args" : [
+            "type"
+         ],
+         "required_args" : [
+            "element"
+         ]
+      },
+      "sp_select_sequence" : {
+         "description" : "Select a subset of all available neighbours based on a sample sequence (note that groups are sorted south-west to north-east)",
+         "example" : "# Select every tenth group (groups are sorted alphabetically)\nsp_select_sequence (frequency => 10)\n\n#  Select every tenth group, starting from the third\nsp_select_sequence (frequency => 10, first_offset => 2)\n\n#  Select every tenth group, starting from the third last\n#  and working backwards\nsp_select_sequence (\n    frequency     => 10,\n    first_offset  =>  2,\n    reverse_order =>  1,\n)\n",
+         "optional_args" : [
+            "first_offset",
+            "use_cache",
+            "reverse_order",
+            "cycle_offset"
+         ],
+         "required_args" : [
+            "frequency"
+         ]
+      },
+      "sp_self_only" : {
+         "description" : "Select only the processing group",
+         "example" : "sp_self_only() #  only use the proceessing cell",
+         "optional_args" : [],
+         "required_args" : []
+      },
+      "sp_spatial_output_passed_defq" : {
+         "description" : "Returns 1 if an element passed the definition query for a previously calculated spatial output",
+         "example" : "#  Used for spatial or cluster type analyses:\n#  The simplest case is where the current\n#  analysis includes a def query and you\n#  want to use it in a spatial condition.\nsp_spatial_output_passed_defq();\n\n#  Using another output in this basedata\n#  In this case the output is called 'analysis1'\nsp_spatial_output_passed_defq(\n    output => 'analysis1',\n);\n\n#  Return true if a specific element passed the def query\nsp_spatial_output_passed_defq(\n    element => '153.5:-32.5',\n);\n",
+         "optional_args" : [
+            "element",
+            "output"
+         ],
+         "required_args" : []
+      },
+      "sp_square" : {
+         "description" : "An overlapping square assessed against all dimensions (more properly called a hypercube).\nUses group (map) distances.",
+         "example" : "#  An overlapping square, cube or hypercube\n#  depending on the number of axes\n#   Note - you cannot yet specify which axes to use\n#   so it will be square on all sides\nsp_square (size => 300000)\n",
+         "optional_args" : [],
+         "required_args" : [
+            "size"
+         ]
+      },
+      "sp_square_cell" : {
+         "description" : "A square assessed against all dimensions (more properly called a hypercube).\nUses 'cell' distances.",
+         "example" : "sp_square_cell (size => 3)",
+         "optional_args" : [],
+         "required_args" : [
+            "size"
+         ]
+      }
+   },
+   "title" : "Pre-defined spatial conditions available in Biodiverse",
+   "version" : "5.0"
+}
+
