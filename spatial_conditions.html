@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>3&nbsp; Functions – Biodiverse Spatial Conditions</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -69,15 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./overview.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fbb27ab3f4425a88d9682c2047e7f75c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-983144ede119b023d0910f79062ca3be.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -189,6 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sp_ellipse" id="toc-sp_ellipse" class="nav-link" data-scroll-target="#sp_ellipse">sp_ellipse</a></li>
   <li><a href="#sp_get_spatial_output_list_value" id="toc-sp_get_spatial_output_list_value" class="nav-link" data-scroll-target="#sp_get_spatial_output_list_value">sp_get_spatial_output_list_value</a></li>
   <li><a href="#sp_group_not_empty" id="toc-sp_group_not_empty" class="nav-link" data-scroll-target="#sp_group_not_empty">sp_group_not_empty</a></li>
+  <li><a href="#sp_in_assemblage_range" id="toc-sp_in_assemblage_range" class="nav-link" data-scroll-target="#sp_in_assemblage_range">sp_in_assemblage_range</a></li>
   <li><a href="#sp_in_label_ancestor_range" id="toc-sp_in_label_ancestor_range" class="nav-link" data-scroll-target="#sp_in_label_ancestor_range">sp_in_label_ancestor_range</a></li>
   <li><a href="#sp_in_label_range" id="toc-sp_in_label_range" class="nav-link" data-scroll-target="#sp_in_label_range">sp_in_label_range</a></li>
   <li><a href="#sp_in_line_with" id="toc-sp_in_line_with" class="nav-link" data-scroll-target="#sp_in_line_with">sp_in_line_with</a></li>
@@ -209,6 +212,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sp_select_element" id="toc-sp_select_element" class="nav-link" data-scroll-target="#sp_select_element">sp_select_element</a></li>
   <li><a href="#sp_select_sequence" id="toc-sp_select_sequence" class="nav-link" data-scroll-target="#sp_select_sequence">sp_select_sequence</a></li>
   <li><a href="#sp_self_only" id="toc-sp_self_only" class="nav-link" data-scroll-target="#sp_self_only">sp_self_only</a></li>
+  <li><a href="#sp_shape_of_label_ancestor_range" id="toc-sp_shape_of_label_ancestor_range" class="nav-link" data-scroll-target="#sp_shape_of_label_ancestor_range">sp_shape_of_label_ancestor_range</a></li>
+  <li><a href="#sp_shape_of_label_range" id="toc-sp_shape_of_label_range" class="nav-link" data-scroll-target="#sp_shape_of_label_range">sp_shape_of_label_range</a></li>
   <li><a href="#sp_spatial_output_passed_defq" id="toc-sp_spatial_output_passed_defq" class="nav-link" data-scroll-target="#sp_spatial_output_passed_defq">sp_spatial_output_passed_defq</a></li>
   <li><a href="#sp_square" id="toc-sp_square" class="nav-link" data-scroll-target="#sp_square">sp_square</a></li>
   <li><a href="#sp_square_cell" id="toc-sp_square_cell" class="nav-link" data-scroll-target="#sp_square_cell">sp_square_cell</a></li>
@@ -242,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Functions also set metadata to tell the system how to use the spatial index. The <a href="https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#building-a-spatial-index" class="external" target="_blank">spatial index</a> saves considerable processing time for large data sets as the system does not need to test many pairs of index blocks to determine which to use. If you use a function for which an index will produce erroneous results then the system sets a flag to ignore it. You can also disable it in the settings for a spatial condition.</p>
 <section id="available-functions" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="available-functions"><span class="header-section-number">3.1</span> Available functions</h2>
-<p>The available functions in version 5.0 are: <a href="#sp_annulus"><em>sp_annulus</em></a>, <a href="#sp_block"><em>sp_block</em></a>, <a href="#sp_circle"><em>sp_circle</em></a>, <a href="#sp_circle_cell"><em>sp_circle_cell</em></a>, <a href="#sp_ellipse"><em>sp_ellipse</em></a>, <a href="#sp_get_spatial_output_list_value"><em>sp_get_spatial_output_list_value</em></a>, <a href="#sp_group_not_empty"><em>sp_group_not_empty</em></a>, <a href="#sp_in_label_ancestor_range"><em>sp_in_label_ancestor_range</em></a>, <a href="#sp_in_label_range"><em>sp_in_label_range</em></a>, <a href="#sp_in_line_with"><em>sp_in_line_with</em></a>, <a href="#sp_is_left_of"><em>sp_is_left_of</em></a>, <a href="#sp_is_right_of"><em>sp_is_right_of</em></a>, <a href="#sp_match_regex"><em>sp_match_regex</em></a>, <a href="#sp_match_text"><em>sp_match_text</em></a>, <a href="#sp_point_in_cluster"><em>sp_point_in_cluster</em></a>, <a href="#sp_point_in_poly"><em>sp_point_in_poly</em></a>, <a href="#sp_point_in_poly_shape"><em>sp_point_in_poly_shape</em></a>, <a href="#sp_points_in_same_cluster"><em>sp_points_in_same_cluster</em></a>, <a href="#sp_points_in_same_poly_shape"><em>sp_points_in_same_poly_shape</em></a>, <a href="#sp_rectangle"><em>sp_rectangle</em></a>, <a href="#sp_redundancy_greater_than"><em>sp_redundancy_greater_than</em></a>, <a href="#sp_richness_greater_than"><em>sp_richness_greater_than</em></a>, <a href="#sp_select_all"><em>sp_select_all</em></a>, <a href="#sp_select_block"><em>sp_select_block</em></a>, <a href="#sp_select_element"><em>sp_select_element</em></a>, <a href="#sp_select_sequence"><em>sp_select_sequence</em></a>, <a href="#sp_self_only"><em>sp_self_only</em></a>, <a href="#sp_spatial_output_passed_defq"><em>sp_spatial_output_passed_defq</em></a>, <a href="#sp_square"><em>sp_square</em></a>, <a href="#sp_square_cell"><em>sp_square_cell</em></a>,</p>
+<p>The available functions in version 5.99_001 are: <a href="#sp_annulus"><em>sp_annulus</em></a>, <a href="#sp_block"><em>sp_block</em></a>, <a href="#sp_circle"><em>sp_circle</em></a>, <a href="#sp_circle_cell"><em>sp_circle_cell</em></a>, <a href="#sp_ellipse"><em>sp_ellipse</em></a>, <a href="#sp_get_spatial_output_list_value"><em>sp_get_spatial_output_list_value</em></a>, <a href="#sp_group_not_empty"><em>sp_group_not_empty</em></a>, <a href="#sp_in_assemblage_range"><em>sp_in_assemblage_range</em></a>, <a href="#sp_in_label_ancestor_range"><em>sp_in_label_ancestor_range</em></a>, <a href="#sp_in_label_range"><em>sp_in_label_range</em></a>, <a href="#sp_in_line_with"><em>sp_in_line_with</em></a>, <a href="#sp_is_left_of"><em>sp_is_left_of</em></a>, <a href="#sp_is_right_of"><em>sp_is_right_of</em></a>, <a href="#sp_match_regex"><em>sp_match_regex</em></a>, <a href="#sp_match_text"><em>sp_match_text</em></a>, <a href="#sp_point_in_cluster"><em>sp_point_in_cluster</em></a>, <a href="#sp_point_in_poly"><em>sp_point_in_poly</em></a>, <a href="#sp_point_in_poly_shape"><em>sp_point_in_poly_shape</em></a>, <a href="#sp_points_in_same_cluster"><em>sp_points_in_same_cluster</em></a>, <a href="#sp_points_in_same_poly_shape"><em>sp_points_in_same_poly_shape</em></a>, <a href="#sp_rectangle"><em>sp_rectangle</em></a>, <a href="#sp_redundancy_greater_than"><em>sp_redundancy_greater_than</em></a>, <a href="#sp_richness_greater_than"><em>sp_richness_greater_than</em></a>, <a href="#sp_select_all"><em>sp_select_all</em></a>, <a href="#sp_select_block"><em>sp_select_block</em></a>, <a href="#sp_select_element"><em>sp_select_element</em></a>, <a href="#sp_select_sequence"><em>sp_select_sequence</em></a>, <a href="#sp_self_only"><em>sp_self_only</em></a>, <a href="#sp_shape_of_label_ancestor_range"><em>sp_shape_of_label_ancestor_range</em></a>, <a href="#sp_shape_of_label_range"><em>sp_shape_of_label_range</em></a>, <a href="#sp_spatial_output_passed_defq"><em>sp_spatial_output_passed_defq</em></a>, <a href="#sp_square"><em>sp_square</em></a>, <a href="#sp_square_cell"><em>sp_square_cell</em></a>,</p>
 <section id="sp_annulus" class="level3">
 <h3 class="anchored" data-anchor-id="sp_annulus">sp_annulus</h3>
 <p>An annulus. Assessed against all dimensions by default but use the optional <code>axes =&gt; []</code> arg to specify a subset. Uses group (map) distances.</p>
@@ -341,6 +346,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  to check is varied spatially.}</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>sp_group_not_empty (element =&gt; <span class="ot">'</span><span class="ss">5467:9876</span><span class="ot">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
+<section id="sp_in_assemblage_range" class="level3">
+<h3 class="anchored" data-anchor-id="sp_in_assemblage_range">sp_in_assemblage_range</h3>
+<p>(Available from version 5.1)</p>
+<p>Is a group within the range of any of the labels in the assemblage found in the processing group?</p>
+<p>Returns true if the group falls within the range of any of the any of the assemblage label ranges. The range is by default defined as the set of groups in the basedata containing that label.</p>
+<p>The underlying algorithm checks each of the terminal ranges using <a href="#sp_in_label_range">sp_in_label_range()</a>. This means the search can also use the convex/concave hull or circumcircle of each terminal, as well as setting other arguments such as the <code>buffer_dist</code> and using a default label in some circumstances.</p>
+<p>Note that the range of each of the assemblage labels is assessed separately, i.e.&nbsp;the union of the hulls/circles is used. The ranges are not aggregated before a hull or circumcircle is calculated.</p>
+<p>If used as a definition query then the group arg must be passed.</p>
+<p><strong>Required args:</strong> <em>none</em></p>
+<p><strong>Optional args:</strong> <code>allow_holes</code>, <code>axes</code>, <code>buffer_dist</code>, <code>circumcircle</code>, <code>concave_hull</code>, <code>convex_hull</code>, <code>group</code>, <code>hull_ratio</code></p>
+<p><strong>Example:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of any of the labels in the</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># processing group's assemblage?</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>sp_in_assemblage_range()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in any of the assemblage labels' convex hulls?</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>sp_in_assemblage_range(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  convex_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in any of the assemblage labels' concave hulls</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  with a ratio parameter of 0.5?</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>sp_in_assemblage_range(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  concave_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  hull_ratio   =&gt; <span class="fl">0.5</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#  Or the circumscribing circles?</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>sp_in_assemblage_range(</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  circumcircle =&gt; <span class="dv">1</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#  Only check against one group's assemblage,</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#  e.g. for a definition query.</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>sp_in_assemblage_range(</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  group =&gt; <span class="ot">'</span><span class="ss">38792:24564</span><span class="ot">'</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#  Same as the previous but using the convex hull.</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>sp_in_assemblage_range(</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  group       =&gt; <span class="ot">'</span><span class="ss">38792:24564</span><span class="ot">'</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  convex_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 <section id="sp_in_label_ancestor_range" class="level3">
 <h3 class="anchored" data-anchor-id="sp_in_label_ancestor_range">sp_in_label_ancestor_range</h3>
 <p>(Available from version 5.1)</p>
@@ -360,62 +410,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>label</code>, <code>target</code></p>
 <p><strong>Optional args:</strong> <code>allow_holes</code>, <code>as_frac</code>, <code>axes</code>, <code>buffer_dist</code>, <code>by_depth</code>, <code>by_tip_count</code>, <code>circumcircle</code>, <code>concave_hull</code>, <code>convex_hull</code>, <code>hull_ratio</code>, <code>type</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of an ancestor of Genus:Sp1?</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, target =&gt; <span class="fl">0.5</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of the "grandmother" of Genus:Sp1?</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  label    =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  target   =&gt; <span class="dv">2</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  by_depth =&gt; <span class="dv">1</span>,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of the first ancestor with 6 or more tips?</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  target       =&gt; <span class="dv">6</span>,</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  by_tip_count =&gt; <span class="dv">1</span>,</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in any of the tips' convex hulls?</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  target      =&gt; <span class="fl">0.5</span>,</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  convex_hull =&gt; <span class="dv">1</span>,</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in any of the tips' concave hulls with a ratio parameter of 0.5?</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  target       =&gt; <span class="fl">0.5</span>,</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  concave_hull =&gt; <span class="dv">1</span>,</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  hull_ratio   =&gt; <span class="fl">0.5</span>,</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in any of the tips' circumscribing circles?</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  target       =&gt; <span class="fl">0.5</span>,</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>  circumcircle =&gt; <span class="dv">1</span>,</span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the range of the ancestor for which the sum of</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co">#  branch lengths below and including it is 10,000?</span></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>  label      =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>  target     =&gt; <span class="dv">10000</span>,</span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>  by_len_sum =&gt; <span class="dv">1</span>,</span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the range of the ancestor for which the sum of</span></span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="co">#  number of branches below is at least 10?</span></span>
-<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
-<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>  label      =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>  target     =&gt; <span class="dv">10</span>,</span>
-<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>  by_desc_count =&gt; <span class="dv">1</span>,</span>
-<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of an ancestor of Genus:Sp1?</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, target =&gt; <span class="fl">0.5</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of the "grandmother" of Genus:Sp1?</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  label    =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  target   =&gt; <span class="dv">2</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  by_depth =&gt; <span class="dv">1</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of the first ancestor with 6 or more tips?</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  target       =&gt; <span class="dv">6</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  by_tip_count =&gt; <span class="dv">1</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in any of the tips' convex hulls?</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  target      =&gt; <span class="fl">0.5</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  convex_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in any of the tips' concave hulls with a ratio parameter of 0.5?</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  target       =&gt; <span class="fl">0.5</span>,</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  concave_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  hull_ratio   =&gt; <span class="fl">0.5</span>,</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in any of the tips' circumscribing circles?</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  target       =&gt; <span class="fl">0.5</span>,</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  circumcircle =&gt; <span class="dv">1</span>,</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the range of the ancestor for which the sum of</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co">#  branch lengths below and including it is 10,000?</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  label      =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  target     =&gt; <span class="dv">10000</span>,</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>  by_len_sum =&gt; <span class="dv">1</span>,</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the range of the ancestor for which the sum of</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="co">#  number of branches below is at least 10?</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>sp_in_label_ancestor_range(</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  label      =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>  target     =&gt; <span class="dv">10</span>,</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  by_desc_count =&gt; <span class="dv">1</span>,</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_in_label_range" class="level3">
 <h3 class="anchored" data-anchor-id="sp_in_label_range">sp_in_label_range</h3>
@@ -433,59 +483,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>label</code></p>
 <p><strong>Optional args:</strong> <code>allow_holes</code>, <code>axes</code>, <code>buffer_dist</code>, <code>circumcircle</code>, <code>concave_hull</code>, <code>convex_hull</code>, <code>hull_ratio</code>, <code>type</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of label called Genus:Sp1?</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the convex hull?</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, convex_hull =&gt; <span class="dv">1</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the maximally concave hull?</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, concave_hull =&gt; <span class="dv">1</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in a slightly less concave hull?</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, concave_hull =&gt; <span class="dv">1</span>, hull_ratio =&gt; <span class="fl">0.3</span>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in a slightly less concave hull allowing for holes?</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    concave_hull =&gt; <span class="dv">1</span>,</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    hull_ratio   =&gt; <span class="fl">0.3</span>,</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    allow_holes  =&gt; <span class="dv">1</span>,</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the circumscribing circle?</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, circumcircle =&gt; <span class="dv">1</span>)</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the convex hull with a buffer of 100,000 units?</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    convex_hull =&gt; <span class="dv">1</span>,</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    buffer_dist =&gt; <span class="dv">100000</span>,</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#  Buffers can be negative, in which case the</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#  convex/concave hull or circumcircle is shrunk</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    convex_hull =&gt; <span class="dv">1</span>,</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    buffer_dist =&gt; -<span class="dv">100000</span>,</span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the convex hull defined using the</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co">#  coordinates from the third and first axes?</span></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    convex_hull =&gt; <span class="dv">1</span>,</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    axes        =&gt; [<span class="dv">2</span>,<span class="dv">0</span>],</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="co">#  A convex hull with holes and "half" concave.</span></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>    label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    concave_hull =&gt; <span class="dv">1</span>,</span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>    allow_holes  =&gt; <span class="dv">1</span>,</span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    hull_ratio   =&gt; <span class="fl">0.5</span>,</span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the range of label called Genus:Sp1?</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the convex hull?</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, convex_hull =&gt; <span class="dv">1</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the maximally concave hull?</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, concave_hull =&gt; <span class="dv">1</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in a slightly less concave hull?</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, concave_hull =&gt; <span class="dv">1</span>, hull_ratio =&gt; <span class="fl">0.3</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in a slightly less concave hull allowing for holes?</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    concave_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    hull_ratio   =&gt; <span class="fl">0.3</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    allow_holes  =&gt; <span class="dv">1</span>,</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the circumscribing circle?</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, circumcircle =&gt; <span class="dv">1</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the convex hull with a buffer of 100,000 units?</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    convex_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    buffer_dist =&gt; <span class="dv">100000</span>,</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co">#  Buffers can be negative, in which case the</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co">#  convex/concave hull or circumcircle is shrunk</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    convex_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    buffer_dist =&gt; -<span class="dv">100000</span>,</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the convex hull defined using the</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="co">#  coordinates from the third and first axes?</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    convex_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    axes        =&gt; [<span class="dv">2</span>,<span class="dv">0</span>],</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="co">#  A convex hull with holes and "half" concave.</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>sp_in_label_range(</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>    label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>    concave_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>    allow_holes  =&gt; <span class="dv">1</span>,</span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>    hull_ratio   =&gt; <span class="fl">0.5</span>,</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_in_line_with" class="level3">
 <h3 class="anchored" data-anchor-id="sp_in_line_with">sp_in_line_with</h3>
@@ -493,7 +543,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <em>none</em></p>
 <p><strong>Optional args:</strong> <code>axes</code>, <code>vector_angle</code>, <code>vector_angle_deg</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sp_in_line_with (vector_angle =&gt; <span class="fu">Math::Trig</span>::<span class="fu">pip2</span>) <span class="co">#  pi/2 = 90 degree angle</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sp_in_line_with (vector_angle =&gt; <span class="fu">Math::Trig</span>::<span class="fu">pip2</span>) <span class="co">#  pi/2 = 90 degree angle</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_is_left_of" class="level3">
 <h3 class="anchored" data-anchor-id="sp_is_left_of">sp_is_left_of</h3>
@@ -501,7 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <em>none</em></p>
 <p><strong>Optional args:</strong> <code>axes</code>, <code>vector_angle</code>, <code>vector_angle_deg</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sp_is_left_of (vector_angle =&gt; <span class="fl">1.5714</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sp_is_left_of (vector_angle =&gt; <span class="fl">1.5714</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_is_right_of" class="level3">
 <h3 class="anchored" data-anchor-id="sp_is_right_of">sp_is_right_of</h3>
@@ -509,7 +559,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <em>none</em></p>
 <p><strong>Optional args:</strong> <code>axes</code>, <code>vector_angle</code>, <code>vector_angle_deg</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sp_is_right_of (vector_angle =&gt; <span class="fl">1.5714</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sp_is_right_of (vector_angle =&gt; <span class="fl">1.5714</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_match_regex" class="level3">
 <h3 class="anchored" data-anchor-id="sp_match_regex">sp_match_regex</h3>
@@ -517,21 +567,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>re</code></p>
 <p><strong>Optional args:</strong> <code>axis</code>, <code>type</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  use any neighbour where the first axis includes the text "type1"</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sp_match_regex (re =&gt; <span class="ot">qr'type1'</span>, axis =&gt; <span class="dv">0</span>, type =&gt; <span class="ot">'</span><span class="ss">nbr</span><span class="ot">'</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># match only when the third neighbour axis starts with</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the processing group's second axis</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>sp_match_regex (re =&gt; <span class="ot">qr/</span><span class="ch">^</span><span class="dt">$coord</span><span class="ch">[</span><span class="bn">2</span><span class="ch">]</span><span class="ot">/</span>, axis =&gt; <span class="dv">2</span>, type =&gt; <span class="ot">'</span><span class="ss">nbr</span><span class="ot">'</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># match the whole coordinate ID (element name)</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># where Biome can be 1 or 2 and the rest of the name contains "dry"</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>sp_match_regex (re =&gt; <span class="ot">qr/</span><span class="ch">^</span><span class="ot">Biome</span><span class="ch">[</span><span class="bn">12</span><span class="ch">]</span><span class="ot">:.</span><span class="ch">+</span><span class="ot">dry/</span>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a definition query to only use groups where the</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># third axis ends in 'park' (case insensitive)</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>sp_match_regex (text =&gt; <span class="ot">qr{park</span><span class="ch">$</span><span class="ot">}i</span>, axis =&gt; <span class="dv">2</span>, type =&gt; <span class="ot">'</span><span class="ss">proc</span><span class="ot">'</span>)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  use any neighbour where the first axis includes the text "type1"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sp_match_regex (re =&gt; <span class="ot">qr'type1'</span>, axis =&gt; <span class="dv">0</span>, type =&gt; <span class="ot">'</span><span class="ss">nbr</span><span class="ot">'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># match only when the third neighbour axis starts with</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the processing group's second axis</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>sp_match_regex (re =&gt; <span class="ot">qr/</span><span class="ch">^</span><span class="dt">$coord</span><span class="ch">[</span><span class="bn">2</span><span class="ch">]</span><span class="ot">/</span>, axis =&gt; <span class="dv">2</span>, type =&gt; <span class="ot">'</span><span class="ss">nbr</span><span class="ot">'</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># match the whole coordinate ID (element name)</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># where Biome can be 1 or 2 and the rest of the name contains "dry"</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>sp_match_regex (re =&gt; <span class="ot">qr/</span><span class="ch">^</span><span class="ot">Biome</span><span class="ch">[</span><span class="bn">12</span><span class="ch">]</span><span class="ot">:.</span><span class="ch">+</span><span class="ot">dry/</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a definition query to only use groups where the</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># third axis ends in 'park' (case insensitive)</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>sp_match_regex (text =&gt; <span class="ot">qr{park</span><span class="ch">$</span><span class="ot">}i</span>, axis =&gt; <span class="dv">2</span>, type =&gt; <span class="ot">'</span><span class="ss">proc</span><span class="ot">'</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_match_text" class="level3">
 <h3 class="anchored" data-anchor-id="sp_match_text">sp_match_text</h3>
@@ -539,19 +589,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>text</code></p>
 <p><strong>Optional args:</strong> <code>axis</code>, <code>type</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  use any neighbour where the first axis has value of "type1"</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sp_match_text (text =&gt; <span class="ot">'</span><span class="ss">type1</span><span class="ot">'</span>, axis =&gt; <span class="dv">0</span>, type =&gt; <span class="ot">'</span><span class="ss">nbr</span><span class="ot">'</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># match only when the third neighbour axis is the same</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   as the processing group's second axis</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>sp_match_text (text =&gt; <span class="dt">$coord</span>[<span class="dv">2</span>], axis =&gt; <span class="dv">2</span>, type =&gt; <span class="ot">'</span><span class="ss">nbr</span><span class="ot">'</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># match where the whole coordinate ID (element name)</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># is 'Biome1:savannah forest'</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>sp_match_text (text =&gt; <span class="ot">'</span><span class="ss">Biome1:savannah forest</span><span class="ot">'</span>)</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a definition query to only use groups with 'NK' in the third axis</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>sp_match_text (text =&gt; <span class="ot">'</span><span class="ss">NK</span><span class="ot">'</span>, axis =&gt; <span class="dv">2</span>, type =&gt; <span class="ot">'</span><span class="ss">proc</span><span class="ot">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  use any neighbour where the first axis has value of "type1"</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sp_match_text (text =&gt; <span class="ot">'</span><span class="ss">type1</span><span class="ot">'</span>, axis =&gt; <span class="dv">0</span>, type =&gt; <span class="ot">'</span><span class="ss">nbr</span><span class="ot">'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># match only when the third neighbour axis is the same</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   as the processing group's second axis</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>sp_match_text (text =&gt; <span class="dt">$coord</span>[<span class="dv">2</span>], axis =&gt; <span class="dv">2</span>, type =&gt; <span class="ot">'</span><span class="ss">nbr</span><span class="ot">'</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># match where the whole coordinate ID (element name)</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># is 'Biome1:savannah forest'</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>sp_match_text (text =&gt; <span class="ot">'</span><span class="ss">Biome1:savannah forest</span><span class="ot">'</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a definition query to only use groups with 'NK' in the third axis</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>sp_match_text (text =&gt; <span class="ot">'</span><span class="ss">NK</span><span class="ot">'</span>, axis =&gt; <span class="dv">2</span>, type =&gt; <span class="ot">'</span><span class="ss">proc</span><span class="ot">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_point_in_cluster" class="level3">
 <h3 class="anchored" data-anchor-id="sp_point_in_cluster">sp_point_in_cluster</h3>
@@ -559,27 +609,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>output</code></p>
 <p><strong>Optional args:</strong> <code>element</code>, <code>from_node</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Use any element that is a terminal in the cluster output.</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  This is useful if the cluster analysis was run under</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  a definition query and you want the same set of groups.</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>sp_point_in_cluster (</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  Now specify a cluster within the output</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>sp_point_in_cluster (</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  from_node    =&gt; <span class="ot">'</span><span class="ss">118___</span><span class="ot">'</span>,  <span class="co">#  use the node's name</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#  Specify an element to check instead of the current</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  processing element.</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>sp_point_in_cluster (</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  from_node    =&gt; <span class="ot">'</span><span class="ss">118___</span><span class="ot">'</span>,  <span class="co">#  use the node's name</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  element      =&gt; <span class="ot">'</span><span class="ss">123:456</span><span class="ot">'</span>, <span class="co">#  specify an element to check</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Use any element that is a terminal in the cluster output.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  This is useful if the cluster analysis was run under</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  a definition query and you want the same set of groups.</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>sp_point_in_cluster (</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  Now specify a cluster within the output</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>sp_point_in_cluster (</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  from_node    =&gt; <span class="ot">'</span><span class="ss">118___</span><span class="ot">'</span>,  <span class="co">#  use the node's name</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#  Specify an element to check instead of the current</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  processing element.</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>sp_point_in_cluster (</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  from_node    =&gt; <span class="ot">'</span><span class="ss">118___</span><span class="ot">'</span>,  <span class="co">#  use the node's name</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  element      =&gt; <span class="ot">'</span><span class="ss">123:456</span><span class="ot">'</span>, <span class="co">#  specify an element to check</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_point_in_poly" class="level3">
 <h3 class="anchored" data-anchor-id="sp_point_in_poly">sp_point_in_poly</h3>
@@ -587,37 +637,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>polygon</code></p>
 <p><strong>Optional args:</strong> <code>point</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a square polygon?</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly (</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    polygon =&gt; [[<span class="dv">0</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">0</span>]],</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    point   =&gt; \<span class="dt">@nbrcoord</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a square polygon?</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly (</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    polygon =&gt; [[<span class="dv">0</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">0</span>]],</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    point   =&gt; \<span class="dt">@nbrcoord</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_point_in_poly_shape" class="level3">
 <h3 class="anchored" data-anchor-id="sp_point_in_poly_shape">sp_point_in_poly_shape</h3>
-<p>Select groups that occur within a polygon or polygons extracted from a shapefile</p>
+<p>Select groups that occur within a polygon or polygons from a geospatial feature data set such as a shapefile or geopackage layer</p>
 <p><strong>Required args:</strong> <code>file</code></p>
-<p><strong>Optional args:</strong> <code>axes</code>, <code>field_name</code>, <code>field_val</code>, <code>no_cache</code>, <code>point</code></p>
+<p><strong>Optional args:</strong> <code>axes</code>, <code>field_name</code>, <code>field_val</code>, <code>point</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a shapefile?</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly_shape (</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    file  =&gt; <span class="ot">'</span><span class="ss">c:\biodiverse\data\coastline_lamberts</span><span class="ot">'</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    point =&gt; \<span class="dt">@nbrcoord</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>);</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a shapefile's second polygon (counting from 1)?</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly_shape (</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    file      =&gt; <span class="ot">'</span><span class="ss">c:\biodiverse\data\coastline_lamberts</span><span class="ot">'</span>,</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    field_val =&gt; <span class="dv">2</span>,</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    point     =&gt; \<span class="dt">@nbrcoord</span>,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>);</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a polygon with value 2 in the OBJECT_ID field?</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly_shape (</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    file       =&gt; <span class="ot">'</span><span class="ss">c:\biodiverse\data\coastline_lamberts</span><span class="ot">'</span>,</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    field_name =&gt; <span class="ot">'</span><span class="ss">OBJECT_ID</span><span class="ot">'</span>,</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    field_val  =&gt; <span class="dv">2</span>,</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    point      =&gt; \<span class="dt">@nbrcoord</span>,</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a shapefile?</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly_shape (</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    file  =&gt; <span class="ot">'</span><span class="ss">c:\biodiverse\data\coastline_lamberts</span><span class="ot">'</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    point =&gt; \<span class="dt">@nbrcoord</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a geopackage layer?</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly_shape (</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    file  =&gt; <span class="ot">'</span><span class="ss">c:/biodiverse/data/coastline.gpkg:layername</span><span class="ot">'</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    point =&gt; \<span class="dt">@nbrcoord</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a shapefile's second polygon (counting from 1)?</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly_shape (</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    file      =&gt; <span class="ot">'</span><span class="ss">c:\biodiverse\data\coastline_lamberts</span><span class="ot">'</span>,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    field_val =&gt; <span class="dv">2</span>,</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    point     =&gt; \<span class="dt">@nbrcoord</span>,</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the neighbour coord in a polygon with value 2 in the OBJECT_ID field?</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>sp_point_in_poly_shape (</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    file       =&gt; <span class="ot">'</span><span class="ss">c:\biodiverse\data\coastline_lamberts</span><span class="ot">'</span>,</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    field_name =&gt; <span class="ot">'</span><span class="ss">OBJECT_ID</span><span class="ot">'</span>,</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    field_val  =&gt; <span class="dv">2</span>,</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    point      =&gt; \<span class="dt">@nbrcoord</span>,</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_points_in_same_cluster" class="level3">
 <h3 class="anchored" data-anchor-id="sp_points_in_same_cluster">sp_points_in_same_cluster</h3>
@@ -625,74 +683,80 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>output</code></p>
 <p><strong>Optional args:</strong> <code>from_node</code>, <code>group_by_depth</code>, <code>num_clusters</code>, <code>target_distance</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Try to use the highest four clusters from the root.</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  Note that the next highest number will be used</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  if four is not possible, e.g. there are five</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  siblings below the root.  Fewer will be returned</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  if the tree has insufficient tips.</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_cluster (</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  num_clusters =&gt; <span class="dv">4</span>,</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  Cut the tree at a distance of 0.25 from the tips</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_cluster (</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  output          =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  target_distance =&gt; <span class="fl">0.25</span>,</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">#  Cut the tree at a depth of 3.</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  The root is depth 1.</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_cluster (</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  output          =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  target_distance =&gt; <span class="dv">3</span>,</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  group_by_depth  =&gt; <span class="dv">1</span>,</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co">#  work from an arbitrary node</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_cluster (</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>  num_clusters =&gt; <span class="dv">4</span>,</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>  from_node    =&gt; <span class="ot">'</span><span class="ss">118___</span><span class="ot">'</span>,  <span class="co">#  use the node's name</span></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="co">#  target_distance is ignored if num_clusters is set</span></span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_cluster (</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>  output          =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>  num_clusters    =&gt; <span class="dv">4</span>,</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>  target_distance =&gt; <span class="fl">0.25</span>,</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Try to use the highest four clusters from the root.</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  Note that the next highest number will be used</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  if four is not possible, e.g. there are five</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  siblings below the root.  Fewer will be returned</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  if the tree has insufficient tips.</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_cluster (</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  num_clusters =&gt; <span class="dv">4</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  Cut the tree at a distance of 0.25 from the tips</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_cluster (</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  output          =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  target_distance =&gt; <span class="fl">0.25</span>,</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">#  Cut the tree at a depth of 3.</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  The root is depth 1.</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_cluster (</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  output          =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  target_distance =&gt; <span class="dv">3</span>,</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  group_by_depth  =&gt; <span class="dv">1</span>,</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="co">#  work from an arbitrary node</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_cluster (</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  output       =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>  num_clusters =&gt; <span class="dv">4</span>,</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>  from_node    =&gt; <span class="ot">'</span><span class="ss">118___</span><span class="ot">'</span>,  <span class="co">#  use the node's name</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="co">#  target_distance is ignored if num_clusters is set</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_cluster (</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>  output          =&gt; <span class="ot">"</span><span class="st">some_cluster_output</span><span class="ot">"</span>,</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>  num_clusters    =&gt; <span class="dv">4</span>,</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>  target_distance =&gt; <span class="fl">0.25</span>,</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_points_in_same_poly_shape" class="level3">
 <h3 class="anchored" data-anchor-id="sp_points_in_same_poly_shape">sp_points_in_same_poly_shape</h3>
-<p>Returns true when two points are within the same shapefile polygon</p>
+<p>Returns true when two points intersect the same polygon</p>
 <p><strong>Required args:</strong> <code>file</code></p>
-<p><strong>Optional args:</strong> <code>axes</code>, <code>no_cache</code>, <code>point1</code>, <code>point2</code></p>
+<p><strong>Optional args:</strong> <code>axes</code>, <code>point1</code>, <code>point2</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  define neighbour sets using a shapefile</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (file =&gt; <span class="ot">'</span><span class="ss">path/to/a/shapefile</span><span class="ot">'</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  return true when the neighbour coord is in the same</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  polygon as an arbitrary point</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    file   =&gt; <span class="ot">'</span><span class="ss">path/to/a/shapefile</span><span class="ot">'</span>,</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    point1 =&gt; [<span class="dv">10</span>,<span class="dv">20</span>],</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  reverse the axes</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    file =&gt; <span class="ot">'</span><span class="ss">path/to/a/shapefile</span><span class="ot">'</span>,</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    axes =&gt; [<span class="dv">1</span>,<span class="dv">0</span>],</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">#  compare against the second and third axes of your data</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  e.g. maybe you have time as the first basedata axis</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    file =&gt; <span class="ot">'</span><span class="ss">path/to/a/shapefile</span><span class="ot">'</span>,</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    axes =&gt; [<span class="dv">1</span>,<span class="dv">2</span>],</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  define neighbour sets using a shapefile</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (file =&gt; <span class="ot">'</span><span class="ss">path/to/a/shapefile</span><span class="ot">'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  define neighbour sets using a layer called "somename" in a geopackage called file.gpkg</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (file =&gt; <span class="ot">'</span><span class="ss">path/to/a/file.gpkg:somename</span><span class="ot">'</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  define neighbour sets using a layer called "somename" in a geodatabase called file.gdb</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (file =&gt; <span class="ot">'</span><span class="ss">path/to/a/file.gdb:somename</span><span class="ot">'</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  return true when the neighbour coord is in the same</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  polygon as an arbitrary point</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    file   =&gt; <span class="ot">'</span><span class="ss">path/to/a/shapefile</span><span class="ot">'</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    point1 =&gt; [<span class="dv">10</span>,<span class="dv">20</span>],</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#  reverse the axes</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    file =&gt; <span class="ot">'</span><span class="ss">path/to/a/shapefile</span><span class="ot">'</span>,</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    axes =&gt; [<span class="dv">1</span>,<span class="dv">0</span>],</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co">#  compare against the second and third axes of your data</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co">#  e.g. maybe you have time as the first basedata axis</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>sp_points_in_same_poly_shape (</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    file =&gt; <span class="ot">'</span><span class="ss">path/to/a/shapefile</span><span class="ot">'</span>,</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    axes =&gt; [<span class="dv">1</span>,<span class="dv">2</span>],</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_rectangle" class="level3">
 <h3 class="anchored" data-anchor-id="sp_rectangle">sp_rectangle</h3>
@@ -700,19 +764,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>sizes</code></p>
 <p><strong>Optional args:</strong> <code>axes</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  A rectangle of equal size on the first two axes,</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  and 100 on the third.</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>sp_rectangle (sizes =&gt; [<span class="dv">100000</span>, <span class="dv">100000</span>, <span class="dv">100</span>])</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  The same, but with the axes reordered</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  (an example of using the axes argument)</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>sp_rectangle (</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    sizes =&gt; [<span class="dv">100000</span>, <span class="dv">100</span>, <span class="dv">100000</span>],</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    axes  =&gt; [<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>],</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  Use only the first an third axes</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>sp_rectangle (sizes =&gt; [<span class="dv">100000</span>, <span class="dv">100000</span>], axes =&gt; [<span class="dv">0</span>,<span class="dv">2</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  A rectangle of equal size on the first two axes,</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  and 100 on the third.</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>sp_rectangle (sizes =&gt; [<span class="dv">100000</span>, <span class="dv">100000</span>, <span class="dv">100</span>])</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  The same, but with the axes reordered</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  (an example of using the axes argument)</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>sp_rectangle (</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    sizes =&gt; [<span class="dv">100000</span>, <span class="dv">100</span>, <span class="dv">100000</span>],</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    axes  =&gt; [<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>],</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  Use only the first an third axes</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>sp_rectangle (sizes =&gt; [<span class="dv">100000</span>, <span class="dv">100000</span>], axes =&gt; [<span class="dv">0</span>,<span class="dv">2</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_redundancy_greater_than" class="level3">
 <h3 class="anchored" data-anchor-id="sp_redundancy_greater_than">sp_redundancy_greater_than</h3>
@@ -720,18 +784,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>threshold</code></p>
 <p><strong>Optional args:</strong> <code>element</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Uses the processing group for definition queries,</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  and the neighbour group for spatial conditions.</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  In this example, # any group with a redundncy</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  score of 0.5 or fewerless will return false</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>sp_redundancy_greater_than (</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    threshold =&gt; <span class="fl">0.5</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>sp_redundancy_greater_than (</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    element   =&gt; <span class="ot">'</span><span class="ss">128:254</span><span class="ot">'</span>,  <span class="co">#  an arbitrary element</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    threshold =&gt; <span class="fl">0.2</span>,          <span class="co">#  with a threshold of 0.2</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Uses the processing group for definition queries,</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  and the neighbour group for spatial conditions.</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  In this example, # any group with a redundncy</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  score of 0.5 or fewerless will return false</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>sp_redundancy_greater_than (</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    threshold =&gt; <span class="fl">0.5</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>sp_redundancy_greater_than (</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    element   =&gt; <span class="ot">'</span><span class="ss">128:254</span><span class="ot">'</span>,  <span class="co">#  an arbitrary element</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    threshold =&gt; <span class="fl">0.2</span>,          <span class="co">#  with a threshold of 0.2</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_richness_greater_than" class="level3">
 <h3 class="anchored" data-anchor-id="sp_richness_greater_than">sp_richness_greater_than</h3>
@@ -739,16 +803,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>threshold</code></p>
 <p><strong>Optional args:</strong> <code>element</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Uses the processing group for definition queries,</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  and the neigbour group for spatial conditions.</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>sp_richness_greater_than (</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    threshold =&gt; <span class="dv">3</span>, <span class="co"># any group with 3 or fewer labels will return false</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>sp_richness_greater_than (</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    element   =&gt; <span class="ot">'</span><span class="ss">128:254</span><span class="ot">'</span>,  <span class="co">#  an arbitrary element</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    threshold =&gt; <span class="dv">4</span>,          <span class="co">#  with a threshold of 4</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Uses the processing group for definition queries,</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  and the neigbour group for spatial conditions.</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>sp_richness_greater_than (</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    threshold =&gt; <span class="dv">3</span>, <span class="co"># any group with 3 or fewer labels will return false</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>sp_richness_greater_than (</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    element   =&gt; <span class="ot">'</span><span class="ss">128:254</span><span class="ot">'</span>,  <span class="co">#  an arbitrary element</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    threshold =&gt; <span class="dv">4</span>,          <span class="co">#  with a threshold of 4</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_select_all" class="level3">
 <h3 class="anchored" data-anchor-id="sp_select_all">sp_select_all</h3>
@@ -756,7 +820,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <em>none</em></p>
 <p><strong>Optional args:</strong> <em>none</em></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sp_select_all() <span class="co">#  select every group</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sp_select_all() <span class="co">#  select every group</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_select_block" class="level3">
 <h3 class="anchored" data-anchor-id="sp_select_block">sp_select_block</h3>
@@ -764,18 +828,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>size</code></p>
 <p><strong>Optional args:</strong> <code>count</code>, <code>prng_seed</code>, <code>random</code>, <code>reverse_order</code>, <code>use_cache</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select up to two groups per block with each block being 5 groups</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>on a side where the group size is <span class="dv">100</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>sp_select_block (size =&gt; <span class="dv">500</span>, count =&gt; <span class="dv">2</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  Now do it non-randomly and start from the lower right</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>sp_select_block (size =&gt; <span class="dv">500</span>, count =&gt; <span class="dv">10</span>, random =&gt; <span class="dv">0</span>, <span class="fu">reverse</span> =&gt; <span class="dv">1</span>)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  Rectangular block with user specified PRNG starting seed</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>sp_select_block (size =&gt; [<span class="dv">300</span>, <span class="dv">500</span>], count =&gt; <span class="dv">1</span>, prng_seed =&gt; <span class="dv">454678</span>)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Lower memory footprint (but longer running times for neighbour searches)</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>sp_select_block (size =&gt; <span class="dv">500</span>, count =&gt; <span class="dv">2</span>, clear_cache =&gt; <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select up to two groups per block with each block being 5 groups</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>on a side where the group size is <span class="dv">100</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sp_select_block (size =&gt; <span class="dv">500</span>, count =&gt; <span class="dv">2</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  Now do it non-randomly and start from the lower right</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>sp_select_block (size =&gt; <span class="dv">500</span>, count =&gt; <span class="dv">10</span>, random =&gt; <span class="dv">0</span>, <span class="fu">reverse</span> =&gt; <span class="dv">1</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  Rectangular block with user specified PRNG starting seed</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>sp_select_block (size =&gt; [<span class="dv">300</span>, <span class="dv">500</span>], count =&gt; <span class="dv">1</span>, prng_seed =&gt; <span class="dv">454678</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Lower memory footprint (but longer running times for neighbour searches)</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>sp_select_block (size =&gt; <span class="dv">500</span>, count =&gt; <span class="dv">2</span>, clear_cache =&gt; <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_select_element" class="level3">
 <h3 class="anchored" data-anchor-id="sp_select_element">sp_select_element</h3>
@@ -783,9 +847,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>element</code></p>
 <p><strong>Optional args:</strong> <code>type</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># match where the whole coordinate ID (element name)</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># is 'Biome1:savannah forest'</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sp_select_element (element =&gt; <span class="ot">'</span><span class="ss">Biome1:savannah forest</span><span class="ot">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># match where the whole coordinate ID (element name)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># is 'Biome1:savannah forest'</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>sp_select_element (element =&gt; <span class="ot">'</span><span class="ss">Biome1:savannah forest</span><span class="ot">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_select_sequence" class="level3">
 <h3 class="anchored" data-anchor-id="sp_select_sequence">sp_select_sequence</h3>
@@ -793,19 +857,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>frequency</code></p>
 <p><strong>Optional args:</strong> <code>cycle_offset</code>, <code>first_offset</code>, <code>reverse_order</code>, <code>use_cache</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select every tenth group (groups are sorted alphabetically)</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sp_select_sequence (frequency =&gt; <span class="dv">10</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  Select every tenth group, starting from the third</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>sp_select_sequence (frequency =&gt; <span class="dv">10</span>, first_offset =&gt; <span class="dv">2</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  Select every tenth group, starting from the third last</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  and working backwards</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>sp_select_sequence (</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    frequency     =&gt; <span class="dv">10</span>,</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    first_offset  =&gt;  <span class="dv">2</span>,</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    reverse_order =&gt;  <span class="dv">1</span>,</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select every tenth group (groups are sorted alphabetically)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>sp_select_sequence (frequency =&gt; <span class="dv">10</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  Select every tenth group, starting from the third</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>sp_select_sequence (frequency =&gt; <span class="dv">10</span>, first_offset =&gt; <span class="dv">2</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  Select every tenth group, starting from the third last</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  and working backwards</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>sp_select_sequence (</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    frequency     =&gt; <span class="dv">10</span>,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    first_offset  =&gt;  <span class="dv">2</span>,</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    reverse_order =&gt;  <span class="dv">1</span>,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_self_only" class="level3">
 <h3 class="anchored" data-anchor-id="sp_self_only">sp_self_only</h3>
@@ -813,7 +877,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <em>none</em></p>
 <p><strong>Optional args:</strong> <em>none</em></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sp_self_only() <span class="co">#  only use the proceessing cell</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sp_self_only() <span class="co">#  only use the processing cell</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sp_shape_of_label_ancestor_range" class="level3">
+<h3 class="anchored" data-anchor-id="sp_shape_of_label_ancestor_range">sp_shape_of_label_ancestor_range</h3>
+<p>(Available from version 5.1)</p>
+<p>Is a neighbouring group within an area surrounding the processing group, where that area is equivalent to the range of a label’s ancestor?</p>
+<p>This is a generalisation of the sp_in_label_ancestor_range() method where, instead of only identifying groups within the range, it uses the range as a cookie-cutter shape around the processing group.</p>
+<p>Note that only the polygon methods are supported, i.e.&nbsp;circumcircle, convex and concave hulls. The default is the circumcircle.</p>
+<p>Buffering is also supported.</p>
+<p><strong>Required args:</strong> <code>label</code>, <code>target</code></p>
+<p><strong>Optional args:</strong> <code>allow_holes</code>, <code>as_frac</code>, <code>axes</code>, <code>buffer_dist</code>, <code>by_depth</code>, <code>by_tip_count</code>, <code>circumcircle</code>, <code>concave_hull</code>, <code>convex_hull</code>, <code>hull_ratio</code>, <code>type</code></p>
+<p><strong>Example:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the circumcircle range extent of the ancestor</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># two ancestors above a label called Genus:Sp1, where</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the range is centred on the processing group?</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>sp_shape_of_label_range(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  label    =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  by_depth =&gt; <span class="dv">1</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  target   =&gt; <span class="dv">2</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the convex hull?</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>sp_shape_of_label_ancestor_range(</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  by_depth    =&gt; <span class="dv">1</span>,</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  target      =&gt; <span class="dv">2</span>,</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  convex_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the maximally concave hull?</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>sp_shape_of_label_ancestor_range(</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>  by_depth     =&gt; <span class="dv">1</span>,</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>  target       =&gt; <span class="dv">2</span>,</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>  concave_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the circumscribing circle?</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="co">#  This is the default.</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>sp_shape_of_label_ancestor_range(</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>  label        =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>  circumcircle =&gt; <span class="dv">1</span>,</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>  by_depth     =&gt; <span class="dv">1</span>,</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>  target       =&gt; <span class="dv">2</span>,</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the convex hull with a buffer of 100,000 units?</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>sp_shape_of_label_ancestor_range(</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>  label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>  convex_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>  buffer_dist =&gt; <span class="dv">100000</span>,</span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>  by_depth    =&gt; <span class="dv">1</span>,</span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>  target      =&gt; <span class="dv">2</span>,</span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sp_shape_of_label_range" class="level3">
+<h3 class="anchored" data-anchor-id="sp_shape_of_label_range">sp_shape_of_label_range</h3>
+<p>(Available from version 5.1)</p>
+<p>Is a neighbouring group within an area surrounding the processing group, where that area is equivalent to a label’s range?</p>
+<p>This is a generalisation of the sp_in_label_range() method where, instead of only identifying groups within the range, it uses the range as a cookie-cutter shape around the processing group.</p>
+<p>Note that only the polygon methods are supported, i.e.&nbsp;circumcircle, convex and concave hulls. The default is the circumcircle.</p>
+<p>Buffering is also supported.</p>
+<p><strong>Required args:</strong> <code>label</code></p>
+<p><strong>Optional args:</strong> <code>allow_holes</code>, <code>axes</code>, <code>buffer_dist</code>, <code>circumcircle</code>, <code>concave_hull</code>, <code>convex_hull</code>, <code>hull_ratio</code>, <code>type</code></p>
+<p><strong>Example:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are we in the circumcircle range extent of label</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># called Genus:Sp1, where the range is centred on</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the processing group?</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>sp_shape_of_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the convex hull?</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>sp_shape_of_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, convex_hull =&gt; <span class="dv">1</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the maximally concave hull?</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>sp_shape_of_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, concave_hull =&gt; <span class="dv">1</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the circumscribing circle?</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  This is the default.</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>sp_shape_of_label_range(label =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>, circumcircle =&gt; <span class="dv">1</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co">#  Are we in the convex hull with a buffer of 100,000 units?</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>sp_shape_of_label_range(</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    label       =&gt; <span class="ot">'</span><span class="ss">Genus:Sp1</span><span class="ot">'</span>,</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    convex_hull =&gt; <span class="dv">1</span>,</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    buffer_dist =&gt; <span class="dv">100000</span>,</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_spatial_output_passed_defq" class="level3">
 <h3 class="anchored" data-anchor-id="sp_spatial_output_passed_defq">sp_spatial_output_passed_defq</h3>
@@ -821,22 +972,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <em>none</em></p>
 <p><strong>Optional args:</strong> <code>element</code>, <code>output</code></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Used for spatial or cluster type analyses:</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  The simplest case is where the current</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  analysis includes a def query and you</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  want to use it in a spatial condition.</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>sp_spatial_output_passed_defq();</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  Using another output in this basedata</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  In this case the output is called 'analysis1'</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>sp_spatial_output_passed_defq(</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    output =&gt; <span class="ot">'</span><span class="ss">analysis1</span><span class="ot">'</span>,</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>);</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  Return true if a specific element passed the def query</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>sp_spatial_output_passed_defq(</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    element =&gt; <span class="ot">'</span><span class="ss">153.5:-32.5</span><span class="ot">'</span>,</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Used for spatial or cluster type analyses:</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  The simplest case is where the current</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  analysis includes a def query and you</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  want to use it in a spatial condition.</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>sp_spatial_output_passed_defq();</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  Using another output in this basedata</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  In this case the output is called 'analysis1'</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>sp_spatial_output_passed_defq(</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    output =&gt; <span class="ot">'</span><span class="ss">analysis1</span><span class="ot">'</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  Return true if a specific element passed the def query</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>sp_spatial_output_passed_defq(</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    element =&gt; <span class="ot">'</span><span class="ss">153.5:-32.5</span><span class="ot">'</span>,</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_square" class="level3">
 <h3 class="anchored" data-anchor-id="sp_square">sp_square</h3>
@@ -844,11 +995,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>size</code></p>
 <p><strong>Optional args:</strong> <em>none</em></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  An overlapping square, cube or hypercube</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  depending on the number of axes</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   Note - you cannot yet specify which axes to use</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   so it will be square on all sides</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>sp_square (size =&gt; <span class="dv">300000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  An overlapping square, cube or hypercube</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  depending on the number of axes</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   Note - you cannot yet specify which axes to use</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   so it will be square on all sides</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>sp_square (size =&gt; <span class="dv">300000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sp_square_cell" class="level3">
 <h3 class="anchored" data-anchor-id="sp_square_cell">sp_square_cell</h3>
@@ -856,7 +1007,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Required args:</strong> <code>size</code></p>
 <p><strong>Optional args:</strong> <em>none</em></p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>sp_square_cell (size =&gt; <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode perl code-with-copy"><code class="sourceCode perl"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sp_square_cell (size =&gt; <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
