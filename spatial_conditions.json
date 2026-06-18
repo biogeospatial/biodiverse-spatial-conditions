@@ -73,8 +73,23 @@
          ],
          "required_args" : []
       },
+      "sp_in_assemblage_range" : {
+         "description" : "(Available from version 5.1)\n\nIs a group within the range of any of the labels\nin the assemblage found in the processing group?\n\nReturns true if the group falls within the range of\nany of the any of the assemblage label\nranges.  The range is by default defined as the set of\ngroups in the basedata containing that label.\n\nThe underlying algorithm checks each of the terminal\nranges using [sp_in_label_range()](#sp_in_label_range).\nThis means the search can also use the convex/concave\nhull or circumcircle of each terminal, as well as\nsetting other arguments such as the `buffer_dist`\nand using a default label in some circumstances.\n\nNote that the range of each of the assemblage labels\nis assessed separately, i.e. the union of the\nhulls/circles is used.  The ranges are not aggregated\nbefore a hull or circumcircle is calculated.\n\nIf used as a definition query then the group arg must be passed.\n\n",
+         "example" : "# Are we in the range of any of the labels in the\n# processing group's assemblage?\nsp_in_assemblage_range()\n\n#  Are we in any of the assemblage labels' convex hulls?\nsp_in_assemblage_range(\n  convex_hull => 1,\n)\n\n#  Are we in any of the assemblage labels' concave hulls\n#  with a ratio parameter of 0.5?\nsp_in_assemblage_range(\n  concave_hull => 1,\n  hull_ratio   => 0.5,\n)\n\n#  Or the circumscribing circles?\nsp_in_assemblage_range(\n  circumcircle => 1,\n)\n\n#  Only check against one group's assemblage,\n#  e.g. for a definition query.\nsp_in_assemblage_range(\n  group => '38792:24564',\n)\n\n#  Same as the previous but using the convex hull.\nsp_in_assemblage_range(\n  group       => '38792:24564',\n  convex_hull => 1,\n)\n\n",
+         "optional_args" : [
+            "group",
+            "axes",
+            "circumcircle",
+            "convex_hull",
+            "concave_hull",
+            "hull_ratio",
+            "allow_holes",
+            "buffer_dist"
+         ],
+         "required_args" : []
+      },
       "sp_in_label_ancestor_range" : {
-         "description" : "(Available from version 5.1)\n\nIs a group within the range of a label's ancestor?\n\nReturns true if the group falls within the range of\nany of the any of the ancestor's terminal descendant\nranges.  The range is by default defined as the set of\ngroups in the basedata containing that label.  Polygons\ncan also be specified (see below).\n\nThe ancestor is by default defined by length along the \npath to the root node. Setting the `by_depth` option to true\nuses the number of ancestors.  The `by_tip_count` option\nfinds the first ancestor with at least the target number\nof tips while `by_desc_count` uses the number of descendants\n(tips and internals). The `by_len_sum` finds the first ancestor\nfor which the sum of its descendant branch lengths plus\nits own length is greater than the target.\n\nNegative target values with `by_length` or `by_depth` search the path\nfrom the root to the specified node. However, if a `by_*_count`\noption is used then a negative `target` is treated as\nzero and returns the specified label range is returned.\n\nThe `target` argument determines how far up or down the tree\nthe ancestor is searched for.  When using length,\nthe distance includes the tipwards extent\nof the branch. The depth is calculated as the number\nof ancestors.\n\nIf the `target` value exceeds that to (or of) the root node\nthen the root or label node is returned for positive or\nnegative dist values, respectively.\n\nAn internal branch can be specified as the label.\nSpecifying a `target` of 0 for an internal node\nis one means to use the range of an internal node.\n\nReturns false if the label is not associated with\na node on the tree.\n\nWhen the `as_frac` argument is true then target is\ntreated as a fraction of the distance to the root\nnode, the number of tips, or the sum of all branches,\nas appropriate.\n\nIf the `eq` argument is true then the branch lengths are all\ntreated as of equal length (the mean of the non-zero branch\nlengths), although zero length branches remain zero.\nThis is the same as the alternate tree used in CANAPE.\n\nIf the `rw` argument is true then the branches are range\nweighted.  This is the same as the range weighted\ntree in CANAPE.  When both `eq` and `rw` are true then\nthis is the same as the range weighted alternate tree\nin CANAPE\n\nThe underlying algorithm checks each of the terminal\nranges using [sp_in_label_range()](#sp_in_label_range).\nThis means the search can also use the convex/concave\nhull or circumcircle of each terminal, as well as\nsetting other arguments such as the `buffer_dist`\nand using a default label in some circumstances.\n\nNote that the range of each of the ancestor's tips\nis assessed separately, i.e. the union of the\nhulls/circles is used.  The ranges are not aggregated\nbefore a hull or circumcircle is calculated.\n\n",
+         "description" : "(Available from version 5.1)\n\nIs a group within the range of a label's ancestor?\n\nReturns true if the group falls within the range of\nany of the any of the ancestor's terminal descendant\nranges.  The range is by default defined as the set of\ngroups in the basedata containing that label.  Polygons\ncan also be specified (see below).\n\nThe ancestor is by default defined by length along the\npath to the root node. Setting the `by_depth` option to true\nuses the number of ancestors.  The `by_tip_count` option\nfinds the first ancestor with at least the target number\nof tips while `by_desc_count` uses the number of descendants\n(tips and internals). The `by_len_sum` finds the first ancestor\nfor which the sum of its descendant branch lengths plus\nits own length is greater than the target.\n\nNegative target values with `by_length` or `by_depth` search the path\nfrom the root to the specified node. However, if a `by_*_count`\noption is used then a negative `target` is treated as\nzero and returns the specified label range is returned.\n\nThe `target` argument determines how far up or down the tree\nthe ancestor is searched for.  When using length,\nthe distance includes the tipwards extent\nof the branch. The depth is calculated as the number\nof ancestors.\n\nIf the `target` value exceeds that to (or of) the root node\nthen the root or label node is returned for positive or\nnegative dist values, respectively.\n\nAn internal branch can be specified as the label.\nSpecifying a `target` of 0 for an internal node\nis one means to use the range of an internal node.\n\nReturns false if the label is not associated with\na node on the tree.\n\nWhen the `as_frac` argument is true then target is\ntreated as a fraction of the distance to the root\nnode, the number of tips, or the sum of all branches,\nas appropriate.\n\nIf the `eq` argument is true then the branch lengths are all\ntreated as of equal length (the mean of the non-zero branch\nlengths), although zero length branches remain zero.\nThis is the same as the alternate tree used in CANAPE.\n\nIf the `rw` argument is true then the branches are range\nweighted.  This is the same as the range weighted\ntree in CANAPE.  When both `eq` and `rw` are true then\nthis is the same as the range weighted alternate tree\nin CANAPE\n\nThe underlying algorithm checks each of the terminal\nranges using [sp_in_label_range()](#sp_in_label_range).\nThis means the search can also use the convex/concave\nhull or circumcircle of each terminal, as well as\nsetting other arguments such as the `buffer_dist`\nand using a default label in some circumstances.\n\nNote that the range of each of the ancestor's tips\nis assessed separately, i.e. the union of the\nhulls/circles is used.  The ranges are not aggregated\nbefore a hull or circumcircle is calculated.\n\n",
          "example" : "# Are we in the range of an ancestor of Genus:Sp1?\nsp_in_label_ancestor_range(label => 'Genus:Sp1', target => 0.5)\n\n# Are we in the range of the \"grandmother\" of Genus:Sp1?\nsp_in_label_ancestor_range(\n  label    => 'Genus:Sp1',\n  target   => 2,\n  by_depth => 1,\n)\n\n# Are we in the range of the first ancestor with 6 or more tips?\nsp_in_label_ancestor_range(\n  label        => 'Genus:Sp1',\n  target       => 6,\n  by_tip_count => 1,\n)\n\n#  Are we in any of the tips' convex hulls?\nsp_in_label_ancestor_range(\n  label       => 'Genus:Sp1',\n  target      => 0.5,\n  convex_hull => 1,\n)\n\n#  Are we in any of the tips' concave hulls with a ratio parameter of 0.5?\nsp_in_label_ancestor_range(\n  label        => 'Genus:Sp1',\n  target       => 0.5,\n  concave_hull => 1,\n  hull_ratio   => 0.5,\n)\n\n#  Are we in any of the tips' circumscribing circles?\nsp_in_label_ancestor_range(\n  label        => 'Genus:Sp1',\n  target       => 0.5,\n  circumcircle => 1,\n)\n\n#  Are we in the range of the ancestor for which the sum of\n#  branch lengths below and including it is 10,000?\nsp_in_label_ancestor_range(\n  label      => 'Genus:Sp1',\n  target     => 10000,\n  by_len_sum => 1,\n)\n\n#  Are we in the range of the ancestor for which the sum of\n#  number of branches below is at least 10?\nsp_in_label_ancestor_range(\n  label      => 'Genus:Sp1',\n  target     => 10,\n  by_desc_count => 1,\n)\n\n\n",
          "optional_args" : [
             "type",
@@ -185,14 +200,13 @@
          ]
       },
       "sp_point_in_poly_shape" : {
-         "description" : "Select groups that occur within a polygon or polygons extracted from a shapefile",
-         "example" : "# Is the neighbour coord in a shapefile?\nsp_point_in_poly_shape (\n    file  => 'c:\\biodiverse\\data\\coastline_lamberts',\n    point => \\@nbrcoord,\n);\n# Is the neighbour coord in a shapefile's second polygon (counting from 1)?\nsp_point_in_poly_shape (\n    file      => 'c:\\biodiverse\\data\\coastline_lamberts',\n    field_val => 2,\n    point     => \\@nbrcoord,\n);\n# Is the neighbour coord in a polygon with value 2 in the OBJECT_ID field?\nsp_point_in_poly_shape (\n    file       => 'c:\\biodiverse\\data\\coastline_lamberts',\n    field_name => 'OBJECT_ID',\n    field_val  => 2,\n    point      => \\@nbrcoord,\n);\n",
+         "description" : "Select groups that occur within a polygon or polygons from a geospatial\nfeature data set such as a shapefile or geopackage layer\n",
+         "example" : "# Is the neighbour coord in a shapefile?\nsp_point_in_poly_shape (\n    file  => 'c:\\biodiverse\\data\\coastline_lamberts',\n    point => \\@nbrcoord,\n);\n\n# Is the neighbour coord in a geopackage layer?\nsp_point_in_poly_shape (\n    file  => 'c:/biodiverse/data/coastline.gpkg:layername',\n    point => \\@nbrcoord,\n);\n\n# Is the neighbour coord in a shapefile's second polygon (counting from 1)?\nsp_point_in_poly_shape (\n    file      => 'c:\\biodiverse\\data\\coastline_lamberts',\n    field_val => 2,\n    point     => \\@nbrcoord,\n);\n\n# Is the neighbour coord in a polygon with value 2 in the OBJECT_ID field?\nsp_point_in_poly_shape (\n    file       => 'c:\\biodiverse\\data\\coastline_lamberts',\n    field_name => 'OBJECT_ID',\n    field_val  => 2,\n    point      => \\@nbrcoord,\n);\n",
          "optional_args" : [
             "point",
             "field_name",
             "field_val",
-            "axes",
-            "no_cache"
+            "axes"
          ],
          "required_args" : [
             "file"
@@ -212,13 +226,12 @@
          ]
       },
       "sp_points_in_same_poly_shape" : {
-         "description" : "Returns true when two points are within the same shapefile polygon",
-         "example" : "#  define neighbour sets using a shapefile\nsp_points_in_same_poly_shape (file => 'path/to/a/shapefile')\n\n#  return true when the neighbour coord is in the same\n#  polygon as an arbitrary point\nsp_points_in_same_poly_shape (\n    file   => 'path/to/a/shapefile',\n    point1 => [10,20],\n)\n\n#  reverse the axes\nsp_points_in_same_poly_shape (\n    file => 'path/to/a/shapefile',\n    axes => [1,0],\n)\n\n#  compare against the second and third axes of your data\n#  e.g. maybe you have time as the first basedata axis\nsp_points_in_same_poly_shape (\n    file => 'path/to/a/shapefile',\n    axes => [1,2],\n)\n\n",
+         "description" : "Returns true when two points intersect the same polygon",
+         "example" : "#  define neighbour sets using a shapefile\nsp_points_in_same_poly_shape (file => 'path/to/a/shapefile')\n\n#  define neighbour sets using a layer called \"somename\" in a geopackage called file.gpkg\nsp_points_in_same_poly_shape (file => 'path/to/a/file.gpkg:somename')\n\n#  define neighbour sets using a layer called \"somename\" in a geodatabase called file.gdb\nsp_points_in_same_poly_shape (file => 'path/to/a/file.gdb:somename')\n\n#  return true when the neighbour coord is in the same\n#  polygon as an arbitrary point\nsp_points_in_same_poly_shape (\n    file   => 'path/to/a/shapefile',\n    point1 => [10,20],\n)\n\n#  reverse the axes\nsp_points_in_same_poly_shape (\n    file => 'path/to/a/shapefile',\n    axes => [1,0],\n)\n\n#  compare against the second and third axes of your data\n#  e.g. maybe you have time as the first basedata axis\nsp_points_in_same_poly_shape (\n    file => 'path/to/a/shapefile',\n    axes => [1,2],\n)\n\n",
          "optional_args" : [
             "point1",
             "point2",
-            "axes",
-            "no_cache"
+            "axes"
          ],
          "required_args" : [
             "file"
@@ -299,9 +312,47 @@
       },
       "sp_self_only" : {
          "description" : "Select only the processing group",
-         "example" : "sp_self_only() #  only use the proceessing cell",
+         "example" : "sp_self_only() #  only use the processing cell",
          "optional_args" : [],
          "required_args" : []
+      },
+      "sp_shape_of_label_ancestor_range" : {
+         "description" : "(Available from version 5.1)\n\nIs a neighbouring group within an area surrounding the\nprocessing group, where that area is equivalent to\nthe range of a label's ancestor?\n\nThis is a generalisation of the sp_in_label_ancestor_range()\nmethod where, instead of only identifying groups within\nthe range, it uses the range as a cookie-cutter shape\naround the processing group.\n\nNote that only the polygon methods are supported,\ni.e. circumcircle, convex and concave hulls.  The\ndefault is the circumcircle.\n\nBuffering is also supported.\n\n",
+         "example" : "# Are we in the circumcircle range extent of the ancestor\n# two ancestors above a label called Genus:Sp1, where\n# the range is centred on the processing group?\nsp_shape_of_label_range(\n  label    => 'Genus:Sp1',\n  by_depth => 1,\n  target   => 2,\n)\n\n#  Are we in the convex hull?\nsp_shape_of_label_ancestor_range(\n  label       => 'Genus:Sp1',\n  by_depth    => 1,\n  target      => 2,\n  convex_hull => 1,\n)\n\n#  Are we in the maximally concave hull?\nsp_shape_of_label_ancestor_range(\n  label        => 'Genus:Sp1',\n  by_depth     => 1,\n  target       => 2,\n  concave_hull => 1,\n)\n\n#  Are we in the circumscribing circle?\n#  This is the default.\nsp_shape_of_label_ancestor_range(\n  label        => 'Genus:Sp1',\n  circumcircle => 1,\n  by_depth     => 1,\n  target       => 2,\n)\n\n#  Are we in the convex hull with a buffer of 100,000 units?\nsp_shape_of_label_ancestor_range(\n  label       => 'Genus:Sp1',\n  convex_hull => 1,\n  buffer_dist => 100000,\n  by_depth    => 1,\n  target      => 2,\n)\n\n",
+         "optional_args" : [
+            "type",
+            "axes",
+            "circumcircle",
+            "convex_hull",
+            "concave_hull",
+            "hull_ratio",
+            "allow_holes",
+            "buffer_dist",
+            "by_depth",
+            "as_frac",
+            "by_tip_count"
+         ],
+         "required_args" : [
+            "label",
+            "target"
+         ]
+      },
+      "sp_shape_of_label_range" : {
+         "description" : "(Available from version 5.1)\n\nIs a neighbouring group within an area surrounding the\nprocessing group, where that area is equivalent to\na label's range?\n\nThis is a generalisation of the sp_in_label_range()\nmethod where, instead of only identifying groups within\nthe range, it uses the range as a cookie-cutter shape\naround the processing group.\n\nNote that only the polygon methods are supported,\ni.e. circumcircle, convex and concave hulls.  The\ndefault is the circumcircle.\n\nBuffering is also supported.\n\n",
+         "example" : "# Are we in the circumcircle range extent of label\n# called Genus:Sp1, where the range is centred on\n# the processing group?\nsp_shape_of_label_range(label => 'Genus:Sp1')\n\n#  Are we in the convex hull?\nsp_shape_of_label_range(label => 'Genus:Sp1', convex_hull => 1)\n\n#  Are we in the maximally concave hull?\nsp_shape_of_label_range(label => 'Genus:Sp1', concave_hull => 1)\n\n#  Are we in the circumscribing circle?\n#  This is the default.\nsp_shape_of_label_range(label => 'Genus:Sp1', circumcircle => 1)\n\n#  Are we in the convex hull with a buffer of 100,000 units?\nsp_shape_of_label_range(\n    label       => 'Genus:Sp1',\n    convex_hull => 1,\n    buffer_dist => 100000,\n)\n\n",
+         "optional_args" : [
+            "type",
+            "axes",
+            "circumcircle",
+            "convex_hull",
+            "concave_hull",
+            "hull_ratio",
+            "allow_holes",
+            "buffer_dist"
+         ],
+         "required_args" : [
+            "label"
+         ]
       },
       "sp_spatial_output_passed_defq" : {
          "description" : "Returns 1 if an element passed the definition query for a previously calculated spatial output",
@@ -330,6 +381,6 @@
       }
    },
    "title" : "Pre-defined spatial conditions available in Biodiverse",
-   "version" : "5.0"
+   "version" : "5.99_001"
 }
 
