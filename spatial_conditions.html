@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -76,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-983144ede119b023d0910f79062ca3be.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-a2bd9de4ef5fb761a4bc875b37f99336.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -247,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Functions also set metadata to tell the system how to use the spatial index. The <a href="https://biogeospatial.github.io/biodiverse-quick-start/5-data-analysis.html#building-a-spatial-index" class="external" target="_blank">spatial index</a> saves considerable processing time for large data sets as the system does not need to test many pairs of index blocks to determine which to use. If you use a function for which an index will produce erroneous results then the system sets a flag to ignore it. You can also disable it in the settings for a spatial condition.</p>
 <section id="available-functions" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="available-functions"><span class="header-section-number">3.1</span> Available functions</h2>
-<p>The available functions in version 5.99_001 are: <a href="#sp_annulus"><em>sp_annulus</em></a>, <a href="#sp_block"><em>sp_block</em></a>, <a href="#sp_circle"><em>sp_circle</em></a>, <a href="#sp_circle_cell"><em>sp_circle_cell</em></a>, <a href="#sp_ellipse"><em>sp_ellipse</em></a>, <a href="#sp_get_spatial_output_list_value"><em>sp_get_spatial_output_list_value</em></a>, <a href="#sp_group_not_empty"><em>sp_group_not_empty</em></a>, <a href="#sp_in_assemblage_range"><em>sp_in_assemblage_range</em></a>, <a href="#sp_in_label_ancestor_range"><em>sp_in_label_ancestor_range</em></a>, <a href="#sp_in_label_range"><em>sp_in_label_range</em></a>, <a href="#sp_in_line_with"><em>sp_in_line_with</em></a>, <a href="#sp_is_left_of"><em>sp_is_left_of</em></a>, <a href="#sp_is_right_of"><em>sp_is_right_of</em></a>, <a href="#sp_match_regex"><em>sp_match_regex</em></a>, <a href="#sp_match_text"><em>sp_match_text</em></a>, <a href="#sp_point_in_cluster"><em>sp_point_in_cluster</em></a>, <a href="#sp_point_in_poly"><em>sp_point_in_poly</em></a>, <a href="#sp_point_in_poly_shape"><em>sp_point_in_poly_shape</em></a>, <a href="#sp_points_in_same_cluster"><em>sp_points_in_same_cluster</em></a>, <a href="#sp_points_in_same_poly_shape"><em>sp_points_in_same_poly_shape</em></a>, <a href="#sp_rectangle"><em>sp_rectangle</em></a>, <a href="#sp_redundancy_greater_than"><em>sp_redundancy_greater_than</em></a>, <a href="#sp_richness_greater_than"><em>sp_richness_greater_than</em></a>, <a href="#sp_select_all"><em>sp_select_all</em></a>, <a href="#sp_select_block"><em>sp_select_block</em></a>, <a href="#sp_select_element"><em>sp_select_element</em></a>, <a href="#sp_select_sequence"><em>sp_select_sequence</em></a>, <a href="#sp_self_only"><em>sp_self_only</em></a>, <a href="#sp_shape_of_label_ancestor_range"><em>sp_shape_of_label_ancestor_range</em></a>, <a href="#sp_shape_of_label_range"><em>sp_shape_of_label_range</em></a>, <a href="#sp_spatial_output_passed_defq"><em>sp_spatial_output_passed_defq</em></a>, <a href="#sp_square"><em>sp_square</em></a>, <a href="#sp_square_cell"><em>sp_square_cell</em></a>,</p>
+<p>The available functions in version 6.0 are: <a href="#sp_annulus"><em>sp_annulus</em></a>, <a href="#sp_block"><em>sp_block</em></a>, <a href="#sp_circle"><em>sp_circle</em></a>, <a href="#sp_circle_cell"><em>sp_circle_cell</em></a>, <a href="#sp_ellipse"><em>sp_ellipse</em></a>, <a href="#sp_get_spatial_output_list_value"><em>sp_get_spatial_output_list_value</em></a>, <a href="#sp_group_not_empty"><em>sp_group_not_empty</em></a>, <a href="#sp_in_assemblage_range"><em>sp_in_assemblage_range</em></a>, <a href="#sp_in_label_ancestor_range"><em>sp_in_label_ancestor_range</em></a>, <a href="#sp_in_label_range"><em>sp_in_label_range</em></a>, <a href="#sp_in_line_with"><em>sp_in_line_with</em></a>, <a href="#sp_is_left_of"><em>sp_is_left_of</em></a>, <a href="#sp_is_right_of"><em>sp_is_right_of</em></a>, <a href="#sp_match_regex"><em>sp_match_regex</em></a>, <a href="#sp_match_text"><em>sp_match_text</em></a>, <a href="#sp_point_in_cluster"><em>sp_point_in_cluster</em></a>, <a href="#sp_point_in_poly"><em>sp_point_in_poly</em></a>, <a href="#sp_point_in_poly_shape"><em>sp_point_in_poly_shape</em></a>, <a href="#sp_points_in_same_cluster"><em>sp_points_in_same_cluster</em></a>, <a href="#sp_points_in_same_poly_shape"><em>sp_points_in_same_poly_shape</em></a>, <a href="#sp_rectangle"><em>sp_rectangle</em></a>, <a href="#sp_redundancy_greater_than"><em>sp_redundancy_greater_than</em></a>, <a href="#sp_richness_greater_than"><em>sp_richness_greater_than</em></a>, <a href="#sp_select_all"><em>sp_select_all</em></a>, <a href="#sp_select_block"><em>sp_select_block</em></a>, <a href="#sp_select_element"><em>sp_select_element</em></a>, <a href="#sp_select_sequence"><em>sp_select_sequence</em></a>, <a href="#sp_self_only"><em>sp_self_only</em></a>, <a href="#sp_shape_of_label_ancestor_range"><em>sp_shape_of_label_ancestor_range</em></a>, <a href="#sp_shape_of_label_range"><em>sp_shape_of_label_range</em></a>, <a href="#sp_spatial_output_passed_defq"><em>sp_spatial_output_passed_defq</em></a>, <a href="#sp_square"><em>sp_square</em></a>, <a href="#sp_square_cell"><em>sp_square_cell</em></a>,</p>
 <section id="sp_annulus" class="level3">
 <h3 class="anchored" data-anchor-id="sp_annulus">sp_annulus</h3>
 <p>An annulus. Assessed against all dimensions by default but use the optional <code>axes =&gt; []</code> arg to specify a subset. Uses group (map) distances.</p>
