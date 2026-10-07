@@ -16,6 +16,8 @@ book:
     - variables.qmd
   output-file: "Biodiverse-Spatial-Conditions"
   downloads: [pdf]
+  repo-url: https://github.com/biogeospatial/biodiverse-spatial-conditions
+
   
 format:
   html:

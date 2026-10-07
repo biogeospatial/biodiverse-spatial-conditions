@@ -20,6 +20,4 @@ If you have question about the software then please start a discussion at [https
 
 This work is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License](http://creativecommons.org/licenses/by-nc-nd/3.0/).  
 
-Source code for this site is at [https://github.com/biogeospatial/biodiverse-spatial-conditions](https://github.com/biogeospatial/biodiverse-spatial-conditions).
-
 ![](images/image-cc-by.png)
