@@ -7,7 +7,8 @@ project:
 book:
   title: "Biodiverse Spatial Conditions"
   author: "Shawn W Laffan"
-  date: "2026-02-05"
+  date: "2026-10-07"
+  date-format: iso
   chapters:
     - index.qmd
     - overview.qmd
