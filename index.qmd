@@ -4,13 +4,13 @@ Spatial conditions are core to the Biodiverse system.  They are used to specify 
 
 This document provides an overview of using these conditions, lists the available conditions and describes how to use variables, both predefined and user defined.  
 
-This document describes **version 5.0**
+This document describes **version 6.0**
 
 Biodiverse is a tool for the spatial analysis of biological and related diversity.
 
 For more information about Biodiverse see:
 
-Web site: [http://shawnlaffan.github.io/biodiverse/](http://shawnlaffan.github.io/biodiverse/)
+Web site: [https://shawnlaffan.github.io/biodiverse/](https://shawnlaffan.github.io/biodiverse/)
 
 
 The blog provides updates and tips about functionality.  It can be accessed through [https://biodiverse-analysis-software.blogspot.com.au/](http://biodiverse-analysis-software.blogspot.com.au/) 
